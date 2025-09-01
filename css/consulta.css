@@ -1,0 +1,264 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+nav {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+nav li {
+  flex: 1;
+}
+
+nav a {
+  display: block;
+  text-decoration: none;
+  color: #666;
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: #333;
+  border-bottom-color: #4a90e2;
+}
+
+nav a.active {
+  color: #4a90e2;
+  border-bottom-color: #4a90e2;
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+main > p {
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 1.1em;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 50px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primario {
+  background: #4a90e2;
+  color: white;
+}
+
+.btn-primario:hover {
+  background: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.progreso-container {
+  margin: 50px 0;
+}
+
+.progreso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.paso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.circulo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.paso.completado .circulo {
+  background: #e0e0e0;
+}
+
+.paso.actual .circulo {
+  background: #28a745;
+  color: white;
+}
+
+.check {
+  font-size: 1.2em;
+}
+
+.linea {
+  width: 120px;
+  height: 3px;
+  background: #e0e0e0;
+  margin: 0 20px;
+}
+
+.linea.completada {
+  background: #e0e0e0;
+}
+
+.paso span {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #666;
+}
+
+.paso.actual span {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.detalle-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.detalle-item .icono {
+  font-size: 1.5em;
+  width: 40px;
+  text-align: center;
+}
+
+.detalle-item .label {
+  font-weight: 600;
+  color: #333;
+  min-width: 60px;
+}
+
+.detalle-item .valor {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+  }
+  
+  main {
+    margin: 20px;
+    padding: 30px 20px;
+  }
+  
+  .progreso {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .linea {
+    width: 3px;
+    height: 40px;
+    margin: 0;
+  }
+  
+  .detalle {
+    text-align: center;
+  }
+}
+
+/* En consulta.css */
+.icono-estado {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.circulo {
+    /* Mantener tus estilos actuales */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
