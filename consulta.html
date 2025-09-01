@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Estado</title>
+  <link rel="stylesheet" href="css/consulta.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
+      <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Consulta de Estado del Siniestro</h1>
+    <p>Ingrese su RUT y número de póliza para consultar el estado de su siniestro.</p>
+
+    <form>
+      <input type="text" placeholder="RUT">
+      <input type="text" placeholder="Número de Póliza">
+      <button type="submit" class="btn-primario">Consultar</button>
+    </form>
+
+    <div class="progreso-container">
+      <div class="progreso">
+        <div class="paso completado">
+          <div class="circulo"></div>
+          <span>Ingresado</span>
+        </div>
+        <div class="linea completada"></div>
+        <div class="paso completado">
+          <div class="circulo"></div>
+          <span>En Evaluación</span>
+        </div>
+        <div class="linea completada"></div>
+        <div class="paso actual">
+          <div class="circulo">
+            <span class="check">✓</span>
+          </div>
+          <span>Finalizado</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detalle">
+      <div class="detalle-item">
+        <span class="icono">🚚</span>
+        <span class="label">Grúa</span>
+        <span class="valor">Grúa XYZ</span>
+      </div>
+      <div class="detalle-item">
+        <span class="icono">🔧</span>
+        <span class="label">Taller</span>
+        <span class="valor">Taller ABC</span>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

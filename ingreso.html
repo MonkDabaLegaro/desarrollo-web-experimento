@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingreso de Siniestro</title>
+  <link rel="stylesheet" href="css/ingreso.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="ingreso.html" class="active">Ingreso de Siniestro</a></li>
+      <li><a href="consulta.html">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Ingreso de Siniestro</h1>
+    <p>Completa los datos. La validación de póliza y creación de ficha están simuladas con datos locales.</p>
+
+    <form>
+      <div class="form-row">
+        <div class="form-group">
+          <label>RUT del Asegurado</label>
+          <input type="text" placeholder="12.345.676-5" value="12.345.676-5">
+          <small class="hint">Hint.Msg</small>
+        </div>
+        <div class="form-group">
+          <label>N° de Póliza</label>
+          <div class="input-with-icon">
+            <input type="text">
+            <span class="calendar-icon">📅</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo de Daño</label>
+          <select>
+            <option>Selecciona...</option>
+            <option>Colisión</option>
+            <option>Robo</option>
+            <option>Incendio</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo de Vehículo</label>
+          <select>
+            <option>Selecciona...</option>
+            <option>Auto</option>
+            <option>Camioneta</option>
+            <option>Moto</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email de contacto</label>
+          <input type="email" placeholder="correo@dominio.cl" value="correo@dominio.cl">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" placeholder="+56 9 1234 5678" value="+56 9 1234 5678">
+        </div>
+      </div>
+
+      <div class="form-group file-upload">
+        <label>Adjuntar Documento (simulado)</label>
+        <div class="file-input-wrapper">
+          <button type="button" class="file-button">Elegir archivo</button>
+          <span class="file-text">No se ha seleccionado ningún archivo</span>
+        </div>
+        <small class="file-hint">Se almacenan solo los nombres de archivo en esta demo</small>
+      </div>
+
+      <div class="acciones">
+        <button type="submit" class="btn-primario">Validar y crear ficha</button>
+        <button type="reset" class="btn-secundario">Limpiar</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
