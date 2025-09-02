@@ -142,3 +142,41 @@ p {
   margin-top: 1rem;
   font-size: 0.9rem;
 }
+
+.login-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.login-help {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.login-help h4 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.credentials p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+}
+
+.credentials strong {
+  color: #333;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Siniestros</title>
+  <link rel="stylesheet" href="css/siniestro.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Sistema de Siniestros</h1>
+      <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2>Gestión de Siniestros</h2>
+      <p>Administra y consulta información de siniestros vehiculares</p>
+      
+      <div class="actions">
+        <a href="ingreso.html" class="btn btn-primary">
+          <img src="image/folder.png" alt="Nuevo" class="btn-icon">
+          Nuevo Siniestro
+        </a>
+        <a href="consulta.html" class="btn btn-secondary">
+          <img src="image/list.png" alt="Consultar" class="btn-icon">
+          Consultar Estado
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Verificar autenticación
+    document.addEventListener("DOMContentLoaded", function() {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      if (isLoggedIn !== "true") {
+        window.location.href = "login.html";
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userType");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
