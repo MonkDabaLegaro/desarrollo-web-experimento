@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Siniestros</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/siniestro.css">
 </head>
 <body>
-  <header>
+  <header class="main-header">
     <div class="header-content">
       <h1>Sistema de Siniestros</h1>
       <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
     </div>
   </header>
 
-  <main>
-    <div class="container">
+  <main class="main-content">
+    <div class="welcome-section">
       <h2>Gestión de Siniestros</h2>
       <p>Administra y consulta información de siniestros vehiculares</p>
       
@@ -32,20 +33,6 @@
     </div>
   </main>
 
-  <script>
-    // Verificar autenticación
-    document.addEventListener("DOMContentLoaded", function() {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      if (isLoggedIn !== "true") {
-        window.location.href = "login.html";
-      }
-    });
-
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("userType");
-      window.location.href = "login.html";
-    }
-  </script>
+  <script src="js/siniestro.js"></script>
 </body>
 </html>

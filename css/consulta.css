@@ -1,132 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* === ESTILOS ESPECÍFICOS PARA CONSULTA === */
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
-}
-
-nav {
+/* Barra de progreso específica */
+.progress-container {
   background: white;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0;
-}
-
-nav li {
-  flex: 1;
-}
-
-nav a {
-  display: block;
-  text-decoration: none;
-  color: #666;
-  padding: 20px;
-  text-align: center;
-  font-weight: 500;
-  border-bottom: 3px solid transparent;
-  transition: all 0.3s ease;
-}
-
-nav a:hover {
-  color: #333;
-  border-bottom-color: #4a90e2;
-}
-
-nav a.active {
-  color: #4a90e2;
-  border-bottom-color: #4a90e2;
-}
-
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 40px;
-  background: white;
+  padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  text-align: center;
+  margin-bottom: 2rem;
 }
 
-h1 {
-  font-size: 2.2em;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-main > p {
-  color: #666;
-  margin-bottom: 40px;
-  font-size: 1.1em;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 50px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-input {
-  padding: 15px 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1em;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus {
-  outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-}
-
-button {
-  padding: 15px 30px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-primario {
-  background: #4a90e2;
-  color: white;
-}
-
-.btn-primario:hover {
-  background: #357abd;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
-}
-
-.progreso-container {
-  margin: 50px 0;
-}
-
-.progreso {
+.progress-bar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,131 +17,112 @@ button {
   margin: 0 auto;
 }
 
-.paso {
+.progress-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
   position: relative;
 }
 
-.circulo {
-  width: 40px;
-  height: 40px;
+.step-circle {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: #e0e0e0;
+  background: #e5e7eb;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
   transition: all 0.3s ease;
 }
 
-.paso.completado .circulo {
-  background: #e0e0e0;
+.progress-step.completed .step-circle {
+  background: #10b981;
 }
 
-.paso.actual .circulo {
-  background: #28a745;
-  color: white;
+.progress-step.current .step-circle {
+  background: #2563eb;
+  animation: pulse 2s infinite;
 }
 
-.check {
-  font-size: 1.2em;
+.step-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
 }
 
-.linea {
-  width: 120px;
+.progress-step.completed .step-icon,
+.progress-step.current .step-icon {
+  filter: brightness(0) invert(1);
+}
+
+.progress-line {
+  width: 100px;
   height: 3px;
-  background: #e0e0e0;
-  margin: 0 20px;
+  background: #e5e7eb;
+  margin: 0 1rem;
 }
 
-.linea.completada {
-  background: #e0e0e0;
+.progress-line.completed {
+  background: #10b981;
 }
 
-.paso span {
-  font-size: 0.9em;
+.progress-step span {
+  font-size: 0.9rem;
   font-weight: 500;
   color: #666;
 }
 
-.paso.actual span {
-  color: #28a745;
+.progress-step.completed span {
+  color: #10b981;
   font-weight: 600;
 }
 
-.detalle {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: left;
+.progress-step.current span {
+  color: #2563eb;
+  font-weight: 600;
 }
 
-.detalle-item {
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Contenedor de detalles */
+.details-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.detail-item {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 15px;
+  gap: 1rem;
+  padding: 1rem;
   background: #f8f9fa;
   border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
-.detalle-item .icono {
-  font-size: 1.5em;
-  width: 40px;
-  text-align: center;
+.detail-item:last-child {
+  margin-bottom: 0;
 }
 
-.detalle-item .label {
+.detail-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+}
+
+.detail-label {
   font-weight: 600;
   color: #333;
-  min-width: 60px;
+  min-width: 80px;
 }
 
-.detalle-item .valor {
+.detail-value {
   color: #666;
-}
-
-@media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-  }
-  
-  main {
-    margin: 20px;
-    padding: 30px 20px;
-  }
-  
-  .progreso {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .linea {
-    width: 3px;
-    height: 40px;
-    margin: 0;
-  }
-  
-  .detalle {
-    text-align: center;
-  }
-}
-
-/* En consulta.css */
-.icono-estado {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-}
-
-.circulo {
-    /* Mantener tus estilos actuales */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-weight: 500;
 }
