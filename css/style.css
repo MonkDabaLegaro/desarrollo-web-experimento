@@ -32,6 +32,21 @@ body {
 .header-content h1 {
   font-size: 1.8rem;
   font-weight: 600;
+  flex: 1;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  padding: 4px;
 }
 
 .user-info {
