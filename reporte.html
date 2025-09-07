@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reportes</title>
+  <title>Consulta de Estado</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/reporte.css">
+  <link rel="stylesheet" href="css/consulta.css">
 </head>
 <body>
+  <nav>
+    <ul>
+      <li><a href="admin.html">Inicio</a></li>
   <header class="main-header">
     <div class="header-content">
       <div class="header-logo">
@@ -15,144 +15,112 @@
       </div>
       <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
-        <span>Bienvenido, <strong>Administrador</strong></span>
+        <span>Bienvenido, <strong id="userTypeDisplay">Usuario</strong></span>
         <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
   <nav class="main-nav">
-    <ul>
+    <ul id="navMenu">
       <li><a href="bienvenida.html">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
-      <li><a href="consulta.html">Consulta de Estado</a></li>
-      <li><a href="reporte.html" class="active">Reportes</a></li>
+      <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
     </ul>
   </nav>
 
+  <main>
+    <h1>Consulta de Siniestro</h1>
+    <p>Ingrese su RUT y número de póliza para consultar la información de su siniestro.</p>
   <main class="main-content">
-    <div class="alert">
-      <img src="image/list.png" alt="Sistema" class="alert-icon">
-      <span>Sistema en mantenimiento - Algunos reportes pueden estar desactualizados</span>
+    <div class="form-container">
+      <h1>Consulta de Estado del Siniestro</h1>
+      <p>Ingrese su RUT y número de póliza para consultar el estado de su siniestro.</p>
+
+    <form id="form-consulta">
+      <input type="text" id="rutConsulta" placeholder="RUT" required>
+      <input type="text" id="polizaConsulta" placeholder="Número de Póliza" required>
+      <button type="submit" class="btn-primario">Consultar</button>
+    </form>
+      <form id="consultaForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>RUT del Asegurado</label>
+            <input type="text" id="rutConsulta" placeholder="12.345.678-9" required>
+          </div>
+          <div class="form-group">
+            <label>Número de Póliza</label>
+            <input type="text" id="polizaConsulta" placeholder="POL123" required>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <img src="image/list.png" alt="Consultar" class="btn-icon">
+            Consultar
+          </button>
+        </div>
+      </form>
     </div>
 
-    <div class="welcome-section">
-      <h1>Reportes y Estadísticas</h1>
-      <p>Análisis detallado del rendimiento del sistema de asistencia vehicular</p>
+    <div id="resultado" class="detalle" style="display:none; margin-top:20px;">
+      <h2>Información del Siniestro</h2>
+      <div class="detalle-item"><strong>RUT:</strong> <span id="resRut"></span></div>
+      <div class="detalle-item"><strong>N° Póliza:</strong> <span id="resPoliza"></span></div>
+      <div class="detalle-item"><strong>Tipo de Daño:</strong> <span id="resDanio"></span></div>
+      <div class="detalle-item"><strong>Vehículo:</strong> <span id="resVehiculo"></span></div>
+      <div class="detalle-item"><strong>Email:</strong> <span id="resEmail"></span></div>
+      <div class="detalle-item"><strong>Teléfono:</strong> <span id="resTelefono"></span></div>
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-step completed" id="step1">
+          <div class="step-circle">
+            <img src="image/folder.png" alt="Ingresado" class="step-icon">
+          </div>
+          <span>Ingresado</span>
+        </div>
+        <div class="progress-line completed" id="line1"></div>
+        <div class="progress-step completed" id="step2">
+          <div class="step-circle">
+            <img src="image/list.png" alt="En Evaluación" class="step-icon">
+          </div>
+          <span>En Evaluación</span>
+        </div>
+        <div class="progress-line completed" id="line2"></div>
+        <div class="progress-step current" id="step3">
+          <div class="step-circle">
+            <img src="image/Checkmark.png" alt="Finalizado" class="step-icon">
+          </div>
+          <span>Finalizado</span>
+        </div>
+      </div>
     </div>
 
-    <div class="dashboard">
-      <div class="chart-container">
-        <h3>Cantidad de Asistencias</h3>
-        <div class="chart-header">
-          <img src="image/list.png" alt="Gráfico" class="chart-icon">
-        </div>
-        <div class="bar-chart">
-          <div class="bar" style="height: 80%" data-value="80"></div>
-          <div class="bar" style="height: 60%" data-value="60"></div>
-          <div class="bar" style="height: 70%" data-value="70"></div>
-          <div class="bar" style="height: 45%" data-value="45"></div>
-          <div class="bar" style="height: 90%" data-value="90"></div>
-        </div>
-        <div class="chart-labels">
-          <span>Ene</span>
-          <span>Feb</span>
-          <span>Mar</span>
-          <span>Abr</span>
-          <span>May</span>
-        </div>
+    <div class="details-container" id="detailsContainer" style="display: none;">
+      <div class="detail-item">
+        <img src="image/folder.png" alt="Grúa" class="detail-icon">
+        <span class="detail-label">Grúa</span>
+        <span class="detail-value" id="gruaInfo">Grúa XYZ</span>
       </div>
-
-      <div class="chart-container">
-        <h3>Tipos de Vehículo</h3>
-        <div class="chart-header">
-          <img src="image/folder.png" alt="Gráfico" class="chart-icon">
-        </div>
-        <div class="pie-chart">
-          <div class="pie-slice" style="--percentage: 40; --color: #2563eb;"></div>
-          <div class="pie-slice" style="--percentage: 30; --color: #3b82f6;"></div>
-          <div class="pie-slice" style="--percentage: 20; --color: #60a5fa;"></div>
-          <div class="pie-slice" style="--percentage: 10; --color: #93c5fd;"></div>
-        </div>
-        <div class="pie-legend">
-          <div class="legend-item">
-            <div class="legend-color" style="background: #2563eb;"></div>
-            <span>Autos (40%)</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: #3b82f6;"></div>
-            <span>Camionetas (30%)</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: #60a5fa;"></div>
-            <span>Motos (20%)</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: #93c5fd;"></div>
-            <span>Otros (10%)</span>
-          </div>
-        </div>
+      <div class="detail-item">
+        <img src="image/list.png" alt="Taller" class="detail-icon">
+        <span class="detail-label">Taller</span>
+        <span class="detail-value" id="tallerInfo">Taller ABC</span>
       </div>
-
-      <div class="chart-container">
-        <h3>Desempeño de Talleres</h3>
-        <div class="chart-header">
-          <img src="image/Checkmark.png" alt="Gráfico" class="chart-icon">
-        </div>
-        <div class="line-chart">
-          <svg viewBox="0 0 300 150" class="line-svg">
-            <polyline points="20,120 70,100 120,80 170,90 220,70 270,50" 
-                      fill="none" stroke="#2563eb" stroke-width="3"/>
-            <circle cx="20" cy="120" r="4" fill="#2563eb"/>
-            <circle cx="70" cy="100" r="4" fill="#2563eb"/>
-            <circle cx="120" cy="80" r="4" fill="#2563eb"/>
-            <circle cx="170" cy="90" r="4" fill="#2563eb"/>
-            <circle cx="220" cy="70" r="4" fill="#2563eb"/>
-            <circle cx="270" cy="50" r="4" fill="#2563eb"/>
-          </svg>
-        </div>
-      </div>
-
-      <div class="chart-container">
-        <h3>Distribución Geográfica</h3>
-        <div class="chart-header">
-          <img src="image/folder.png" alt="Gráfico" class="chart-icon">
-        </div>
-        <div class="horizontal-bars">
-          <div class="region-bar">
-            <span class="region-label">Santiago</span>
-            <div class="h-bar">
-              <div class="h-bar-fill" style="width: 80%"></div>
-            </div>
-            <span class="region-value">80%</span>
-          </div>
-          <div class="region-bar">
-            <span class="region-label">Valparaíso</span>
-            <div class="h-bar">
-              <div class="h-bar-fill" style="width: 45%"></div>
-            </div>
-            <span class="region-value">45%</span>
-          </div>
-          <div class="region-bar">
-            <span class="region-label">Concepción</span>
-            <div class="h-bar">
-              <div class="h-bar-fill" style="width: 60%"></div>
-            </div>
-            <span class="region-value">60%</span>
-          </div>
-          <div class="region-bar">
-            <span class="region-label">La Serena</span>
-            <div class="h-bar">
-              <div class="h-bar-fill" style="width: 30%"></div>
-            </div>
-            <span class="region-value">30%</span>
-          </div>
-        </div>
+      <div class="detail-item">
+        <img src="image/Checkmark.png" alt="Liquidador" class="detail-icon">
+        <span class="detail-label">Liquidador</span>
+        <span class="detail-value" id="liquidadorInfo">María González</span>
       </div>
     </div>
   </main>
 
+  <!-- Scripts -->
   <script src="js/siniestro.js"></script>
-  <script src="js/reporte.js"></script>
+  <script src ="js/consulta.js"></script>
+
+
+  <script src="js/consulta.js"></script>
 </body>
+</html>
 </html>
