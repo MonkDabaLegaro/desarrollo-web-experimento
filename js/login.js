@@ -5,7 +5,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
   const password = document.getElementById("password").value.trim();
   const errorMsg = document.getElementById("errorMsg");
 
-  // 🔑 Credenciales de ejemplo para diferentes tipos de usuario
+  //Credenciales de ejemplo para diferentes tipos de usuario
   const adminUser = "admin";
   const adminPass = "1234";
   const clientUser = "cliente";
@@ -17,7 +17,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     localStorage.setItem("userType", "admin");
     
     // Redirigir al panel admin
-    const redirect = localStorage.getItem("redirectAfterLogin") || "bienvenida.html";
+    const redirect = localStorage.getItem("redirectAfterLogin") || "admin.html";
     localStorage.removeItem("redirectAfterLogin");
     window.location.href = redirect;
   } else if (username === clientUser && password === clientPass) {

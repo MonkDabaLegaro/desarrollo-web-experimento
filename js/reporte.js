@@ -1,53 +1,97 @@
-// Verificar autenticación al cargar la página
-document.addEventListener("DOMContentLoaded", function() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const userType = localStorage.getItem("userType");
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Estadísticas generales
+      const stats = siniestroManager.getEstadisticas();
 
-  // Solo administradores pueden acceder a reportes
-  if (isLoggedIn !== "true" || userType !== "admin") {
-    localStorage.setItem("redirectAfterLogin", "reporte.html");
-    window.location.href = "login.html";
-    return;
-  }
+      new Chart(document.getElementById("chartEstados"), {
+        type: "bar",
+        data: {
+          labels: ["Ingresados", "En Evaluación", "Finalizados", "Activos"],
+          datasets: [{
+            label: "Cantidad",
+            data: [stats.ingresados, stats.enEvaluacion, stats.finalizados, stats.activos],
+            backgroundColor: ["#3498db", "#f1c40f", "#2ecc71", "#e67e22"]
+          }]
+        }
+      });
 
-  // Cargar datos de reportes
-  loadReportData();
-});
+      // 2. Tipos de daño
+      const tipos = siniestroManager.getEstadisticasPorTipo();
+      new Chart(document.getElementById("chartTipos"), {
+        type: "pie",
+        data: {
+          labels: Object.keys(tipos),
+          datasets: [{
+            data: Object.values(tipos),
+            backgroundColor: ["#e74c3c", "#9b59b6", "#1abc9c", "#f39c12"]
+          }]
+        }
+      });
 
-function logout() {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("userType");
-  localStorage.removeItem("redirectAfterLogin");
-  window.location.href = "login.html";
-}
+      // 3. Siniestros por liquidador
+      const liquidadores = siniestroManager.getEstadisticasPorLiquidador();
+      new Chart(document.getElementById("chartLiquidadores"), {
+        type: "line",
+        data: {
+          labels: Object.keys(liquidadores),
+          datasets: [{
+            label: "Total por liquidador",
+            data: Object.values(liquidadores).map(l => l.total),
+            borderColor: "#2980b9",
+            fill: false,
+            tension: 0.3
+          }]
+        }
+      });
 
-function loadReportData() {
-  // Animar barras del gráfico
-  animateCharts();
-  
-  // Cargar estadísticas reales si hay datos
-  const stats = siniestroManager.getEstadisticas();
-  console.log('Estadísticas del sistema:', stats);
-}
+      // 4. Últimos 5 siniestros
+        const recientes = siniestroManager.getSiniestrosRecientes();
+        const lista = document.getElementById("listaRecientes");
+        lista.innerHTML = ""; // limpiar antes de renderizar
 
-function animateCharts() {
-  // Animar barras
-  const bars = document.querySelectorAll('.bar');
-  bars.forEach((bar, index) => {
-    setTimeout(() => {
-      bar.style.transform = 'scaleY(1)';
-    }, index * 200);
+        recientes.forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = `${formatearFechaHora(s.fechaRegistro)} | RUT: ${s.rut} | Póliza: ${s.numeroPoliza} | Daño: ${s.tipoSeguro} | Estado: ${s.estado}`;
+        lista.appendChild(li);
+      });
+    });
+
+      document.addEventListener("DOMContentLoaded", () => {
+    // Estadísticas
+    const stats = siniestroManager.getEstadisticas();
+
+    new Chart(document.getElementById("chartEstados"), {
+      type: "bar",
+      data: {
+        labels: ["Ingresados", "En Evaluación", "Finalizados", "Activos"],
+        datasets: [{
+          label: "Cantidad",
+          data: [stats.ingresados, stats.enEvaluacion, stats.finalizados, stats.activos],
+          backgroundColor: ["#3498db", "#f1c40f", "#2ecc71", "#e67e22"]
+        }]
+      }
+    });
+
+    // Tipos de daño
+    const tipos = siniestroManager.getEstadisticasPorTipo();
+    new Chart(document.getElementById("chartTipos"), {
+      type: "pie",
+      data: {
+        labels: Object.keys(tipos),
+        datasets: [{
+          data: Object.values(tipos),
+          backgroundColor: ["#e74c3c", "#9b59b6", "#1abc9c", "#f39c12"]
+        }]
+      }
+    });
+
+    // Últimos 5 siniestros
+    const recientes = siniestroManager.getSiniestrosRecientes();
+    const lista = document.getElementById("listaRecientes");
+    lista.innerHTML = ""; // limpiar antes de renderizar
+
+    recientes.forEach(s => {
+      const li = document.createElement("li");
+      li.textContent = `${formatearFechaHora(s.fechaRegistro)} | RUT: ${s.rut} | Póliza: ${s.numeroPoliza} | Daño: ${s.tipoSeguro} | Estado: ${s.estado}`;
+      lista.appendChild(li);
+    });
   });
-
-  // Animar barras horizontales
-  const hBars = document.querySelectorAll('.h-bar-fill');
-  hBars.forEach((bar, index) => {
-    setTimeout(() => {
-      const width = bar.style.width;
-      bar.style.width = '0%';
-      setTimeout(() => {
-        bar.style.width = width;
-      }, 100);
-    }, index * 300);
-  });
-}
