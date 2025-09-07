@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio - Sistema de Asistencia</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="header-content">
+      <div class="header-logo">
+        <img src="image/logo.png" alt="Logo" class="logo-image">
+      </div>
+      <h1>Sistema de Asistencia Vehicular</h1>
+      <div class="user-info">
+        <span>Bienvenido, <strong>Administrador</strong></span>
+        <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="bienvenida.html" class="active">Inicio</a></li>
+      <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
+      <li><a href="consulta.html">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <div class="welcome-section">
+      <h2>Bienvenido al Sistema de Gestión de Siniestros</h2>
+      <p>Desde este panel puedes gestionar todos los aspectos del sistema de asistencia vehicular.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <img src="image/folder.png" alt="Siniestros Activos" class="stat-image">
+        </div>
+        <div class="stat-content">
+          <h3>Siniestros Activos</h3>
+          <p class="stat-number">24</p>
+          <small>En proceso</small>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <img src="image/Checkmark.png" alt="Completados Hoy" class="stat-image">
+        </div>
+        <div class="stat-content">
+          <h3>Completados Hoy</h3>
+          <p class="stat-number">8</p>
+          <small>Finalizados</small>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <img src="image/list.png" alt="Grúas Disponibles" class="stat-image">
+        </div>
+        <div class="stat-content">
+          <h3>Grúas Disponibles</h3>
+          <p class="stat-number">12</p>
+          <small>En servicio</small>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <img src="image/YellowCheckMark.png" alt="Talleres Activos" class="stat-image">
+        </div>
+        <div class="stat-content">
+          <h3>Talleres Activos</h3>
+          <p class="stat-number">6</p>
+          <small>Operativos</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h3>Acciones Rápidas</h3>
+      <div class="action-buttons">
+        <a href="ingreso.html" class="action-btn">
+          <img src="image/folder.png" alt="Nuevo" class="action-icon">
+          <span>Nuevo Siniestro</span>
+        </a>
+        <a href="consulta.html" class="action-btn">
+          <img src="image/list.png" alt="Consultar" class="action-icon">
+          <span>Consultar Estado</span>
+        </a>
+        <a href="reporte.html" class="action-btn">
+          <img src="image/Checkmark.png" alt="Reportes" class="action-icon">
+          <span>Ver Reportes</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="recent-activity">
+      <h3>Actividad Reciente</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <img src="image/folder.png" alt="Nuevo" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Nuevo siniestro registrado</strong></p>
+            <small>RUT: 12.345.678-9 - Póliza: POL123</small>
+            <span class="activity-time">Hace 15 minutos</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <img src="image/list.png" alt="Proceso" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Siniestro en evaluación</strong></p>
+            <small>Asignado a liquidador María González</small>
+            <span class="activity-time">Hace 1 hora</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <img src="image/Checkmark.png" alt="Completado" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Siniestro finalizado</strong></p>
+            <small>Vehículo entregado al cliente</small>
+            <span class="activity-time">Hace 2 horas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/siniestro.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -7,6 +7,14 @@
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
+  display: none;
+}
+
+.progress-container h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .progress-bar {
@@ -94,6 +102,20 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  display: none;
+}
+
+.details-container h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
 .detail-item {
@@ -103,11 +125,6 @@
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.detail-item:last-child {
-  margin-bottom: 0;
 }
 
 .detail-icon {
@@ -119,7 +136,7 @@
 .detail-label {
   font-weight: 600;
   color: #333;
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .detail-value {

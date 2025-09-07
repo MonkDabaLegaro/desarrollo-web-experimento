@@ -26,7 +26,12 @@ class SiniestroManager {
   crearSiniestro(datos) {
     const nuevoSiniestro = {
       id: this.nextId++,
-      ...datos,
+      rut: datos.rut,
+      poliza: datos.poliza,
+      tipoDano: datos.tipoDano,
+      tipoVehiculo: datos.tipoVehiculo,
+      email: datos.email,
+      telefono: datos.telefono,
       fechaRegistro: new Date().toISOString(),
       estado: 'Ingresado',
       liquidador: this.asignarLiquidador(),
@@ -44,7 +49,7 @@ class SiniestroManager {
   buscarSiniestro(rut, poliza) {
     return this.siniestros.find(s => {
       const rutMatch = !rut || s.rut === rut;
-      const polizaMatch = !poliza || s.numeroPoliza === poliza;
+      const polizaMatch = !poliza || s.poliza === poliza;
       return rutMatch && polizaMatch;
     });
   }
@@ -53,9 +58,9 @@ class SiniestroManager {
   buscarSiniestros(criterios) {
     return this.siniestros.filter(s => {
       const rutMatch = !criterios.rut || s.rut.includes(criterios.rut);
-      const polizaMatch = !criterios.poliza || s.numeroPoliza.includes(criterios.poliza);
+      const polizaMatch = !criterios.poliza || s.poliza.includes(criterios.poliza);
       const estadoMatch = !criterios.estado || s.estado === criterios.estado;
-      const tipoMatch = !criterios.tipo || s.tipoSeguro === criterios.tipo;
+      const tipoMatch = !criterios.tipo || s.tipoDano === criterios.tipo;
       
       return rutMatch && polizaMatch && estadoMatch && tipoMatch;
     });
@@ -132,11 +137,11 @@ class SiniestroManager {
     };
   }
 
-  // Obtener estadísticas por tipo de seguro
+  // Obtener estadísticas por tipo de daño
   getEstadisticasPorTipo() {
     const tipos = {};
     this.siniestros.forEach(s => {
-      tipos[s.tipoSeguro] = (tipos[s.tipoSeguro] || 0) + 1;
+      tipos[s.tipoDano] = (tipos[s.tipoDano] || 0) + 1;
     });
     return tipos;
   }
@@ -184,11 +189,11 @@ class SiniestroManager {
   }
 }
 
-// Función corregida: validar RUT sin puntos, solo con guion y dígito numérico o K
+// Función para validar RUT chileno
 function validarRUT(rut) {
-  rut = rut.replace(/\s/g, ''); // quitar espacios
+  rut = rut.replace(/\s/g, '').replace(/\./g, ''); // quitar espacios y puntos
 
-  // Solo formato XXXXXXXX-X (7 u 8 dígitos + guion + número o K)
+  // Formato XXXXXXXX-X (7 u 8 dígitos + guion + número o K)
   const regex = /^(\d{7,8})-([\dKk])$/;
   const match = rut.match(regex);
   if (!match) return false;
@@ -211,13 +216,20 @@ function validarRUT(rut) {
   return dv === dvCalculado;
 }
 
-// Mantengo la función de formateo simple (opcional)
+// Función para formatear RUT
 function formatearRUT(rut) {
-  rut = rut.replace(/\s/g, '');
+  rut = rut.replace(/\s/g, '').replace(/\./g, '');
   const regex = /^(\d+)-([\dKk])$/;
   const match = rut.match(regex);
   if (!match) return rut;
-  return `${match[1]}-${match[2].toUpperCase()}`;
+  
+  const cuerpo = match[1];
+  const dv = match[2].toUpperCase();
+  
+  // Agregar puntos cada 3 dígitos
+  const cuerpoFormateado = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  
+  return `${cuerpoFormateado}-${dv}`;
 }
 
 function formatearFecha(fecha) {
@@ -240,38 +252,3 @@ function formatearFechaHora(fecha) {
 
 // Instancia global del manager
 const siniestroManager = new SiniestroManager();
-
-// Captura de formulario en ingreso.html
-document.addEventListener("DOMContentLoaded", () => {
-  const formulario = document.getElementById("form-siniestro");
-  if (!formulario) return;
-
-  formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const rut = document.getElementById("rut").value.trim();
-    const numeroPoliza = document.getElementById("poliza").value.trim();
-    const tipoDanio = document.getElementById("tipoDanio").value;
-    const tipoVehiculo = document.getElementById("tipoVehiculo").value;
-    const email = document.getElementById("email").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-
-    if (!validarRUT(rut)) {
-      alert("RUT inválido. Formato esperado: 12345678-9 o 12345678-K");
-      return;
-    }
-
-    const datos = {
-      rut: formatearRUT(rut), // normaliza a mayúscula si es K
-      numeroPoliza,
-      tipoSeguro: tipoDanio,
-      vehiculo: tipoVehiculo,
-      email,
-      telefono
-    };
-
-    const nuevo = siniestroManager.crearSiniestro(datos);
-    alert("Siniestro creado con ID: " + nuevo.id);
-    formulario.reset();
-  });
-});

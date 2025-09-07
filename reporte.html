@@ -1,13 +1,13 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consulta de Estado</title>
+  <title>Reportes - Sistema de Asistencia</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/consulta.css">
+  <link rel="stylesheet" href="css/reporte.css">
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="admin.html">Inicio</a></li>
   <header class="main-header">
     <div class="header-content">
       <div class="header-logo">
@@ -15,112 +15,146 @@
       </div>
       <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
-        <span>Bienvenido, <strong id="userTypeDisplay">Usuario</strong></span>
+        <span>Bienvenido, <strong>Administrador</strong></span>
         <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
   <nav class="main-nav">
-    <ul id="navMenu">
+    <ul>
       <li><a href="bienvenida.html">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
-      <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
-      <li><a href="reporte.html">Reportes</a></li>
+      <li><a href="consulta.html">Consulta de Estado</a></li>
+      <li><a href="reporte.html" class="active">Reportes</a></li>
     </ul>
   </nav>
 
-  <main>
-    <h1>Consulta de Siniestro</h1>
-    <p>Ingrese su RUT y número de póliza para consultar la información de su siniestro.</p>
   <main class="main-content">
-    <div class="form-container">
-      <h1>Consulta de Estado del Siniestro</h1>
-      <p>Ingrese su RUT y número de póliza para consultar el estado de su siniestro.</p>
-
-    <form id="form-consulta">
-      <input type="text" id="rutConsulta" placeholder="RUT" required>
-      <input type="text" id="polizaConsulta" placeholder="Número de Póliza" required>
-      <button type="submit" class="btn-primario">Consultar</button>
-    </form>
-      <form id="consultaForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label>RUT del Asegurado</label>
-            <input type="text" id="rutConsulta" placeholder="12.345.678-9" required>
-          </div>
-          <div class="form-group">
-            <label>Número de Póliza</label>
-            <input type="text" id="polizaConsulta" placeholder="POL123" required>
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">
-            <img src="image/list.png" alt="Consultar" class="btn-icon">
-            Consultar
-          </button>
-        </div>
-      </form>
+    <div class="welcome-section">
+      <h2>Reportes y Estadísticas</h2>
+      <p>Visualiza métricas y estadísticas del sistema de siniestros.</p>
     </div>
 
-    <div id="resultado" class="detalle" style="display:none; margin-top:20px;">
-      <h2>Información del Siniestro</h2>
-      <div class="detalle-item"><strong>RUT:</strong> <span id="resRut"></span></div>
-      <div class="detalle-item"><strong>N° Póliza:</strong> <span id="resPoliza"></span></div>
-      <div class="detalle-item"><strong>Tipo de Daño:</strong> <span id="resDanio"></span></div>
-      <div class="detalle-item"><strong>Vehículo:</strong> <span id="resVehiculo"></span></div>
-      <div class="detalle-item"><strong>Email:</strong> <span id="resEmail"></span></div>
-      <div class="detalle-item"><strong>Teléfono:</strong> <span id="resTelefono"></span></div>
-    <div class="progress-container" id="progressContainer" style="display: none;">
-      <div class="progress-bar">
-        <div class="progress-step completed" id="step1">
-          <div class="step-circle">
-            <img src="image/folder.png" alt="Ingresado" class="step-icon">
-          </div>
-          <span>Ingresado</span>
+    <div class="dashboard">
+      <div class="chart-container">
+        <div class="chart-header">
+          <img src="image/list.png" alt="Estados" class="chart-icon">
         </div>
-        <div class="progress-line completed" id="line1"></div>
-        <div class="progress-step completed" id="step2">
-          <div class="step-circle">
-            <img src="image/list.png" alt="En Evaluación" class="step-icon">
-          </div>
+        <h3>Siniestros por Estado</h3>
+        <div class="bar-chart" id="chartEstados">
+          <div class="bar" data-value="15" data-label="Ingresados"></div>
+          <div class="bar" data-value="8" data-label="En Evaluación"></div>
+          <div class="bar" data-value="12" data-label="Finalizados"></div>
+          <div class="bar" data-value="5" data-label="Activos"></div>
+        </div>
+        <div class="chart-labels">
+          <span>Ingresados</span>
           <span>En Evaluación</span>
-        </div>
-        <div class="progress-line completed" id="line2"></div>
-        <div class="progress-step current" id="step3">
-          <div class="step-circle">
-            <img src="image/Checkmark.png" alt="Finalizado" class="step-icon">
-          </div>
-          <span>Finalizado</span>
+          <span>Finalizados</span>
+          <span>Activos</span>
         </div>
       </div>
-    </div>
 
-    <div class="details-container" id="detailsContainer" style="display: none;">
-      <div class="detail-item">
-        <img src="image/folder.png" alt="Grúa" class="detail-icon">
-        <span class="detail-label">Grúa</span>
-        <span class="detail-value" id="gruaInfo">Grúa XYZ</span>
+      <div class="chart-container">
+        <div class="chart-header">
+          <img src="image/YellowCheckMark.png" alt="Tipos" class="chart-icon">
+        </div>
+        <h3>Tipos de Daño</h3>
+        <div class="pie-chart" id="chartTipos"></div>
+        <div class="pie-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: #2563eb;"></div>
+            <span>Colisión (40%)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #3b82f6;"></div>
+            <span>Robo (30%)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #60a5fa;"></div>
+            <span>Incendio (20%)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #93c5fd;"></div>
+            <span>Vandalismo (10%)</span>
+          </div>
+        </div>
       </div>
-      <div class="detail-item">
-        <img src="image/list.png" alt="Taller" class="detail-icon">
-        <span class="detail-label">Taller</span>
-        <span class="detail-value" id="tallerInfo">Taller ABC</span>
+
+      <div class="chart-container">
+        <div class="chart-header">
+          <img src="image/Chile.png" alt="Regiones" class="chart-icon">
+        </div>
+        <h3>Siniestros por Región</h3>
+        <div class="horizontal-bars">
+          <div class="region-bar">
+            <span class="region-label">RM</span>
+            <div class="h-bar">
+              <div class="h-bar-fill" data-width="85"></div>
+            </div>
+            <span class="region-value">85</span>
+          </div>
+          <div class="region-bar">
+            <span class="region-label">V</span>
+            <div class="h-bar">
+              <div class="h-bar-fill" data-width="65"></div>
+            </div>
+            <span class="region-value">65</span>
+          </div>
+          <div class="region-bar">
+            <span class="region-label">VIII</span>
+            <div class="h-bar">
+              <div class="h-bar-fill" data-width="45"></div>
+            </div>
+            <span class="region-value">45</span>
+          </div>
+          <div class="region-bar">
+            <span class="region-label">X</span>
+            <div class="h-bar">
+              <div class="h-bar-fill" data-width="30"></div>
+            </div>
+            <span class="region-value">30</span>
+          </div>
+        </div>
       </div>
-      <div class="detail-item">
-        <img src="image/Checkmark.png" alt="Liquidador" class="detail-icon">
-        <span class="detail-label">Liquidador</span>
-        <span class="detail-value" id="liquidadorInfo">María González</span>
+
+      <div class="chart-container">
+        <div class="chart-header">
+          <img src="image/clock.png" alt="Tiempo" class="chart-icon">
+        </div>
+        <h3>Últimos Siniestros</h3>
+        <div class="recent-list">
+          <div class="recent-item">
+            <img src="image/folder.png" alt="Nuevo" class="recent-icon">
+            <div class="recent-content">
+              <p><strong>Siniestro #001</strong></p>
+              <small>RUT: 12.345.678-9 - Colisión</small>
+            </div>
+            <span class="recent-time">Hace 15 min</span>
+          </div>
+          <div class="recent-item">
+            <img src="image/list.png" alt="Proceso" class="recent-icon">
+            <div class="recent-content">
+              <p><strong>Siniestro #002</strong></p>
+              <small>RUT: 98.765.432-1 - Robo</small>
+            </div>
+            <span class="recent-time">Hace 1 hora</span>
+          </div>
+          <div class="recent-item">
+            <img src="image/Checkmark.png" alt="Completado" class="recent-icon">
+            <div class="recent-content">
+              <p><strong>Siniestro #003</strong></p>
+              <small>RUT: 11.222.333-4 - Incendio</small>
+            </div>
+            <span class="recent-time">Hace 2 horas</span>
+          </div>
+        </div>
       </div>
     </div>
   </main>
 
-  <!-- Scripts -->
   <script src="js/siniestro.js"></script>
-  <script src ="js/consulta.js"></script>
-
-
-  <script src="js/consulta.js"></script>
+  <script src="js/reporte.js"></script>
 </body>
-</html>
 </html>

@@ -70,21 +70,3 @@
   font-style: italic;
   margin-top: 0.5rem;
 }
-
-/* Acciones del formulario */
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  justify-content: flex-start;
-}
-
-.btn-icon {
-  width: 16px;
-  height: 16px;
-  filter: brightness(0) invert(1);
-}
-
-.btn-secondary .btn-icon {
-  filter: none;
-}

@@ -17,7 +17,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     localStorage.setItem("userType", "admin");
     
     // Redirigir al panel admin
-    const redirect = localStorage.getItem("redirectAfterLogin") || "admin.html";
+    const redirect = localStorage.getItem("redirectAfterLogin") || "bienvenida.html";
     localStorage.removeItem("redirectAfterLogin");
     window.location.href = redirect;
   } else if (username === clientUser && password === clientPass) {

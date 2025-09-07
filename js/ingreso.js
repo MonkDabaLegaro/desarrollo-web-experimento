@@ -28,13 +28,19 @@ function setupForm() {
     e.preventDefault();
     
     const formData = {
-      rut: document.getElementById('rut').value,
-      poliza: document.getElementById('poliza').value,
+      rut: document.getElementById('rut').value.trim(),
+      poliza: document.getElementById('poliza').value.trim(),
       tipoDano: document.getElementById('tipoDano').value,
       tipoVehiculo: document.getElementById('tipoVehiculo').value,
-      email: document.getElementById('email').value,
-      telefono: document.getElementById('telefono').value
+      email: document.getElementById('email').value.trim(),
+      telefono: document.getElementById('telefono').value.trim()
     };
+
+    // Validar campos requeridos
+    if (!formData.rut || !formData.poliza || !formData.tipoDano || !formData.tipoVehiculo || !formData.email || !formData.telefono) {
+      alert('Por favor, completa todos los campos requeridos.');
+      return;
+    }
 
     // Validar RUT
     if (!validarRUT(formData.rut)) {
@@ -42,13 +48,24 @@ function setupForm() {
       return;
     }
 
+    // Validar email
+    if (!validarEmail(formData.email)) {
+      alert('Email inválido. Por favor, ingresa un email válido.');
+      return;
+    }
+
     // Crear siniestro
     const nuevoSiniestro = siniestroManager.crearSiniestro(formData);
     
-    alert(`Siniestro creado exitosamente!\nID: ${nuevoSiniestro.id}\nLiquidador: ${nuevoSiniestro.liquidador}\nGrúa: ${nuevoSiniestro.grua}\nTaller: ${nuevoSiniestro.taller}`);
+    alert(`Siniestro creado exitosamente!
+ID: ${nuevoSiniestro.id}
+Liquidador: ${nuevoSiniestro.liquidador}
+Grúa: ${nuevoSiniestro.grua}
+Taller: ${nuevoSiniestro.taller}`);
     
     // Limpiar formulario
     form.reset();
+    document.querySelector('.file-text').textContent = 'No se ha seleccionado ningún archivo';
   });
 
   // Configurar botón de archivo
@@ -57,8 +74,13 @@ function setupForm() {
   
   fileButton.addEventListener('click', function() {
     // Simular selección de archivo
-    const archivos = ['documento.pdf', 'foto1.jpg', 'parte_policial.pdf'];
+    const archivos = ['documento.pdf', 'foto1.jpg', 'parte_policial.pdf', 'licencia.jpg'];
     const archivoSeleccionado = archivos[Math.floor(Math.random() * archivos.length)];
     fileText.textContent = archivoSeleccionado;
   });
+}
+
+function validarEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 }

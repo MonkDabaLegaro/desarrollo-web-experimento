@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ingreso de Siniestro</title>
+  <title>Ingreso de Siniestro - Sistema de Asistencia</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ingreso.css">
 </head>
 <body>
-  <nav>
   <header class="main-header">
     <div class="header-content">
       <div class="header-logo">
@@ -24,7 +23,6 @@
 
   <nav class="main-nav">
     <ul>
-      <li><a href="admin.html">Inicio</a></li>
       <li><a href="bienvenida.html">Inicio</a></li>
       <li><a href="ingreso.html" class="active">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consulta de Estado</a></li>
@@ -32,108 +30,61 @@
     </ul>
   </nav>
 
-  <main>
-    <h1>Ingreso de Siniestro</h1>
-    <p>Completa los datos. La validación de póliza y creación de ficha están simuladas con datos locales.</p>
   <main class="main-content">
     <div class="form-container">
       <h1>Ingreso de Siniestro</h1>
       <p>Completa los datos. La validación de póliza y creación de ficha están simuladas con datos locales.</p>
 
-    <form id="form-siniestro">
-      <div class="form-row">
-        <div class="form-group">
-          <label>RUT del Asegurado</label>
-          <input type="text" id="rut" placeholder="12345678-5" required>
-          <small class="hint">Ejemplo: 12345678-9</small>
-        </div>
-        <div class="form-group">
-          <label>N° de Póliza</label>
-          <input type="text" id="poliza" required>
       <form id="siniestroForm">
         <div class="form-row">
           <div class="form-group">
             <label>RUT del Asegurado</label>
-            <input type="text" id="rut" placeholder="12.345.676-5" value="12.345.676-5">
+            <input type="text" id="rut" placeholder="12.345.678-9" required>
             <small class="hint">Formato: 12.345.678-9</small>
           </div>
           <div class="form-group">
             <label>N° de Póliza</label>
             <div class="input-with-icon">
-              <input type="text" id="poliza" placeholder="POL123">
+              <input type="text" id="poliza" placeholder="POL123" required>
               <img src="image/folder.png" alt="Póliza" class="input-icon">
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Tipo de Daño</label>
-          <select id="tipoDanio" required>
-            <option value="">Selecciona...</option>
-            <option>Colisión</option>
-            <option>Robo</option>
-            <option>Incendio</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Tipo de Vehículo</label>
-          <select id="tipoVehiculo" required>
-            <option value="">Selecciona...</option>
-            <option>Auto</option>
-            <option>Camioneta</option>
-            <option>Moto</option>
-          </select>
         <div class="form-row">
           <div class="form-group">
             <label>Tipo de Daño</label>
-            <select id="tipoDano">
-              <option>Selecciona...</option>
-              <option>Colisión</option>
-              <option>Robo</option>
-              <option>Incendio</option>
-              <option>Vandalismo</option>
+            <select id="tipoDano" required>
+              <option value="">Selecciona...</option>
+              <option value="Colisión">Colisión</option>
+              <option value="Robo">Robo</option>
+              <option value="Incendio">Incendio</option>
+              <option value="Vandalismo">Vandalismo</option>
             </select>
           </div>
           <div class="form-group">
             <label>Tipo de Vehículo</label>
-            <select id="tipoVehiculo">
-              <option>Selecciona...</option>
-              <option>Auto</option>
-              <option>Camioneta</option>
-              <option>Moto</option>
-              <option>Camión</option>
+            <select id="tipoVehiculo" required>
+              <option value="">Selecciona...</option>
+              <option value="Auto">Auto</option>
+              <option value="Camioneta">Camioneta</option>
+              <option value="Moto">Moto</option>
+              <option value="Camión">Camión</option>
             </select>
           </div>
         </div>
-      </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Email de contacto</label>
-          <input type="email" id="email" placeholder="correo@dominio.cl" required>
         <div class="form-row">
           <div class="form-group">
             <label>Email de contacto</label>
-            <input type="email" id="email" placeholder="correo@dominio.cl" value="correo@dominio.cl">
+            <input type="email" id="email" placeholder="correo@dominio.cl" required>
           </div>
           <div class="form-group">
             <label>Teléfono</label>
-            <input type="tel" id="telefono" placeholder="+56 9 1234 5678" value="+56 9 1234 5678">
+            <input type="tel" id="telefono" placeholder="+56 9 1234 5678" required>
           </div>
         </div>
-        <div class="form-group">
-          <label>Teléfono</label>
-          <input type="tel" id="telefono" placeholder="+56 9 1234 5678" required>
-        </div>
-      </div>
 
-      <div class="form-group file-upload">
-        <label>Adjuntar Documento (simulado)</label>
-        <div class="file-input-wrapper">
-          <button type="button" class="file-button">Elegir archivo</button>
-          <span class="file-text">No se ha seleccionado ningún archivo</span>
         <div class="form-group file-upload">
           <label>Adjuntar Documento (simulado)</label>
           <div class="file-input-wrapper">
@@ -145,14 +96,7 @@
           </div>
           <small class="file-hint">Se almacenan solo los nombres de archivo en esta demo</small>
         </div>
-        <small class="file-hint">Se almacenan solo los nombres de archivo en esta demo</small>
-      </div>
 
-      <div class="acciones">
-        <button type="submit" class="btn-primario">Validar y crear ficha</button>
-        <button type="reset" class="btn-secundario">Limpiar</button>
-      </div>
-    </form>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary">
             <img src="image/Checkmark.png" alt="Validar" class="btn-icon">
@@ -167,12 +111,7 @@
     </div>
   </main>
 
-  <!-- Scripts -->
   <script src="js/siniestro.js"></script>
-  <script>
-
-  </script>
   <script src="js/ingreso.js"></script>
 </body>
-</html>
 </html>

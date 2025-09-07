@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Si no está logueado o no es admin, redirigir al login
   if (isLoggedIn !== "true" || userType !== "admin") {
-    localStorage.setItem("redirectAfterLogin", "admin.html");
+    localStorage.setItem("redirectAfterLogin", "bienvenida.html");
     window.location.href = "login.html";
     return;
   }
