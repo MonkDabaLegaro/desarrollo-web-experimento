@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
+  // Ajustar navegación para cliente
+  adjustNavigation();
+
   // Cargar datos del cliente
   loadClientData();
 });
@@ -24,9 +27,21 @@ function logout() {
   window.location.href = "login.html";
 }
 
+function adjustNavigation() {
+  const navItems = document.querySelectorAll(".main-nav ul li a");
+  
+  // Ocultar opciones de admin para clientes
+  navItems.forEach(item => {
+    if (item.getAttribute("href") === "ingreso.html" || 
+        item.getAttribute("href") === "reporte.html" ||
+        item.getAttribute("href") === "admin.html") {
+      item.parentElement.style.display = "none";
+    }
+  });
+}
+
 function loadClientData() {
   // Simular carga de datos del cliente
-  // En una aplicación real, esto vendría de una API
   console.log("Datos del cliente cargados");
   
   // Mostrar mensaje de bienvenida

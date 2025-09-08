@@ -1,118 +1,54 @@
-// Verificar autenticación al cargar la página
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
+  // Verificar autenticación y permisos
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const userType = localStorage.getItem("userType");
-
-  // Solo administradores pueden acceder a reportes
+  
   if (isLoggedIn !== "true" || userType !== "admin") {
     localStorage.setItem("redirectAfterLogin", "reporte.html");
     window.location.href = "login.html";
     return;
   }
-
-  // Cargar datos de reportes
-  loadReportData();
+  
+  // Actualizar tipo de usuario en la interfaz
+  const userTypeDisplay = document.getElementById("userTypeDisplay");
+  if (userTypeDisplay) {
+    userTypeDisplay.textContent = "Administrador";
+  }
+  
+  // Cargar reportes
+  loadReports();
 });
 
-function logout() {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("userType");
-  localStorage.removeItem("redirectAfterLogin");
-  window.location.href = "login.html";
+function loadReports() {
+  // 1. Estadísticas generales
+  const stats = siniestroManager.getEstadisticas();
+  
+  // Actualizar datos en la tabla
+  updateTableData();
+  
+  // Aquí iría la lógica para los gráficos si tuvieras una biblioteca como Chart.js
+  console.log("Estadísticas cargadas:", stats);
 }
 
-function loadReportData() {
-  // Animar barras del gráfico
-  animateBarChart();
+function updateTableData() {
+  const tbody = document.querySelector(".report-table tbody");
+  const siniestros = siniestroManager.siniestros.slice(0, 5); // Últimos 5 siniestros
   
-  // Animar barras horizontales
-  animateHorizontalBars();
+  tbody.innerHTML = ""; // Limpiar tabla
   
-  // Cargar siniestros recientes
-  loadRecentClaims();
-}
-
-function animateBarChart() {
-  const bars = document.querySelectorAll('.bar');
-  
-  bars.forEach((bar, index) => {
-    const value = bar.getAttribute('data-value');
-    const maxHeight = 180; // Altura máxima en px
-    const height = (value / 20) * maxHeight; // Escalar según valor máximo
+  siniestros.forEach(siniestro => {
+    const tr = document.createElement("tr");
     
-    setTimeout(() => {
-      bar.style.height = height + 'px';
-    }, index * 200);
+    tr.innerHTML = `
+      <td>${siniestro.id}</td>
+      <td>${formatearFecha(siniestro.fechaRegistro)}</td>
+      <td>${siniestro.nombreCliente || siniestro.rut}</td>
+      <td>${siniestro.numeroPoliza}</td>
+      <td>${siniestro.tipoSeguro}</td>
+      <td>${siniestro.liquidador}</td>
+      <td><span class="status-${siniestro.estado === 'Finalizado' ? 'completed' : siniestro.estado === 'En Evaluación' ? 'processing' : 'pending'}">${siniestro.estado}</span></td>
+    `;
+    
+    tbody.appendChild(tr);
   });
-}
-
-function animateHorizontalBars() {
-  const fills = document.querySelectorAll('.h-bar-fill');
-  
-  fills.forEach((fill, index) => {
-    const width = fill.getAttribute('data-width');
-    
-    setTimeout(() => {
-      fill.style.width = width + '%';
-    }, index * 300);
-  });
-}
-
-function loadRecentClaims() {
-  // Obtener siniestros recientes del manager
-  const recientes = siniestroManager.getSiniestrosRecientes(3);
-  const recentList = document.querySelector('.recent-list');
-  
-  if (recientes.length > 0) {
-    recentList.innerHTML = '';
-    
-    recientes.forEach(siniestro => {
-      const item = document.createElement('div');
-      item.className = 'recent-item';
-      
-      const icon = getIconByStatus(siniestro.estado);
-      const timeAgo = getTimeAgo(siniestro.fechaRegistro);
-      
-      item.innerHTML = `
-        <img src="image/${icon}" alt="${siniestro.estado}" class="recent-icon">
-        <div class="recent-content">
-          <p><strong>Siniestro #${siniestro.id.toString().padStart(3, '0')}</strong></p>
-          <small>RUT: ${siniestro.rut} - ${siniestro.tipoDano}</small>
-        </div>
-        <span class="recent-time">${timeAgo}</span>
-      `;
-      
-      recentList.appendChild(item);
-    });
-  }
-}
-
-function getIconByStatus(estado) {
-  switch(estado) {
-    case 'Ingresado':
-      return 'folder.png';
-    case 'En Evaluación':
-      return 'list.png';
-    case 'Finalizado':
-      return 'Checkmark.png';
-    default:
-      return 'folder.png';
-  }
-}
-
-function getTimeAgo(fechaRegistro) {
-  const now = new Date();
-  const fecha = new Date(fechaRegistro);
-  const diffMs = now - fecha;
-  const diffMins = Math.floor(diffMs / (1000 * 60));
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  if (diffMins < 60) {
-    return `Hace ${diffMins} min`;
-  } else if (diffHours < 24) {
-    return `Hace ${diffHours} hora${diffHours > 1 ? 's' : ''}`;
-  } else {
-    return `Hace ${diffDays} día${diffDays > 1 ? 's' : ''}`;
-  }
 }

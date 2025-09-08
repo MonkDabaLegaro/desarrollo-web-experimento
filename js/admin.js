@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Si no está logueado o no es admin, redirigir al login
   if (isLoggedIn !== "true" || userType !== "admin") {
-    localStorage.setItem("redirectAfterLogin", "bienvenida.html");
+    localStorage.setItem("redirectAfterLogin", "admin.html");
     window.location.href = "login.html";
     return;
   }
@@ -25,13 +25,17 @@ function logout() {
 }
 
 function loadDashboardData() {
-  // Simular carga de datos del dashboard
-  // En una aplicación real, esto vendría de una API
+  // Cargar estadísticas reales desde siniestroManager
+  const stats = siniestroManager.getEstadisticas();
   
-  // Actualizar estadísticas con animación
+  // Actualizar los números en el dashboard
+  document.querySelector('.stat-card:nth-child(1) .stat-number').textContent = stats.activos;
+  document.querySelector('.stat-card:nth-child(2) .stat-number').textContent = stats.finalizados;
+  
+  // Animar números
   animateNumbers();
   
-  // Cargar actividad reciente
+  // Cargar actividad reciente real
   loadRecentActivity();
 }
 
@@ -41,7 +45,7 @@ function animateNumbers() {
   statNumbers.forEach(element => {
     const finalValue = parseInt(element.textContent);
     let currentValue = 0;
-    const increment = finalValue / 30; // Duración de la animación
+    const increment = finalValue / 30;
     
     const timer = setInterval(() => {
       currentValue += increment;
@@ -56,65 +60,56 @@ function animateNumbers() {
 }
 
 function loadRecentActivity() {
-  // Simular datos de actividad reciente
-  const activities = [
-    {
-      icon: "folder.png",
-      title: "Nuevo siniestro registrado",
-      description: "RUT: 12.345.678-9 - Póliza: POL123",
-      time: "Hace 15 minutos"
-    },
-    {
-      icon: "list.png", 
-      title: "Siniestro en evaluación",
-      description: "Asignado a liquidador María González",
-      time: "Hace 1 hora"
-    },
-    {
-      icon: "Checkmark.png",
-      title: "Siniestro finalizado", 
-      description: "Vehículo entregado al cliente",
-      time: "Hace 2 horas"
+  const activityList = document.querySelector('.activity-list');
+  const recentSiniestros = siniestroManager.getSiniestrosRecientes(4);
+  
+  // Limpiar actividades existentes
+  activityList.innerHTML = '';
+  
+  // Agregar actividades reales
+  recentSiniestros.forEach(siniestro => {
+    let icon, title;
+    
+    if (siniestro.estado === 'Ingresado') {
+      icon = 'folder.png';
+      title = 'Nuevo siniestro registrado';
+    } else if (siniestro.estado === 'En Evaluación') {
+      icon = 'list.png';
+      title = 'Siniestro en evaluación';
+    } else {
+      icon = 'Checkmark.png';
+      title = 'Siniestro finalizado';
     }
-  ];
-
-  // Las actividades ya están en el HTML, pero podrían cargarse dinámicamente
-  console.log("Actividad reciente cargada:", activities);
+    
+    const timeDiff = timeSince(new Date(siniestro.fechaRegistro));
+    
+    const activityItem = document.createElement('div');
+    activityItem.className = 'activity-item';
+    activityItem.innerHTML = `
+      <img src="image/${icon}" alt="Actividad" class="activity-icon">
+      <div class="activity-content">
+        <p><strong>${title}</strong></p>
+        <small>RUT: ${siniestro.rut} - Póliza: ${siniestro.numeroPoliza}</small>
+        <span class="activity-time">Hace ${timeDiff}</span>
+      </div>
+    `;
+    
+    activityList.appendChild(activityItem);
+  });
 }
 
-// Función para mostrar notificaciones
-function showNotification(message, type = 'info') {
-  const notification = document.createElement('div');
-  notification.className = `notification notification-${type}`;
-  notification.textContent = message;
-  
-  // Estilos para la notificación
-  notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8'};
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-  `;
-  
-  document.body.appendChild(notification);
-  
-  // Animar entrada
-  setTimeout(() => {
-    notification.style.transform = 'translateX(0)';
-  }, 100);
-  
-  // Remover después de 3 segundos
-  setTimeout(() => {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      document.body.removeChild(notification);
-    }, 300);
-  }, 3000);
+function timeSince(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+  let interval = seconds / 31536000;
+
+  if (interval > 1) return Math.floor(interval) + " años";
+  interval = seconds / 2592000;
+  if (interval > 1) return Math.floor(interval) + " meses";
+  interval = seconds / 86400;
+  if (interval > 1) return Math.floor(interval) + " días";
+  interval = seconds / 3600;
+  if (interval > 1) return Math.floor(interval) + " horas";
+  interval = seconds / 60;
+  if (interval > 1) return Math.floor(interval) + " minutos";
+  return Math.floor(seconds) + " segundos";
 }
