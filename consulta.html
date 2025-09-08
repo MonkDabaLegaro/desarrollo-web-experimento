@@ -16,52 +16,58 @@
       <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
         <span>Bienvenido, <strong id="userTypeDisplay">Usuario</strong></span>
-        <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
+        <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
   <nav class="main-nav">
-    <ul id="navMenu">
-      <!-- El menú se actualiza dinámicamente según el tipo de usuario -->
+    <ul>
+      <li><a href="admin.html">Inicio</a></li>
+      <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
+      <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
     </ul>
   </nav>
 
   <main class="main-content">
-    <div class="form-container">
-      <h1>Consulta de Estado del Siniestro</h1>
+    <div class="welcome-section">
+      <h2>Consulta de Estado del Siniestro</h2>
       <p>Ingrese su RUT y número de póliza para consultar el estado de su siniestro.</p>
+    </div>
 
+    <div class="form-container">
       <form id="consultaForm">
         <div class="form-row">
           <div class="form-group">
-            <label>RUT del Asegurado</label>
+            <label for="rutConsulta">RUT del Asegurado</label>
             <input type="text" id="rutConsulta" placeholder="12.345.678-9" required>
+            <p class="info-text">Formato: 12.345.678-9</p>
           </div>
           <div class="form-group">
-            <label>Número de Póliza</label>
+            <label for="polizaConsulta">Número de Póliza</label>
             <input type="text" id="polizaConsulta" placeholder="POL123" required>
           </div>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary">
-            <img src="image/list.png" alt="Consultar" class="btn-icon">
-            Consultar
+            <img src="image/search-icon.png" alt="Consultar" class="btn-icon">
+            Consultar Estado
           </button>
         </div>
       </form>
     </div>
 
-    <div class="progress-container" id="progressContainer">
+    <div class="progress-container" id="progressContainer" style="display: none;">
       <h3>Estado del Siniestro</h3>
       <div class="progress-bar">
-        <div class="progress-step" id="step1">
+        <div class="progress-step completed" id="step1">
           <div class="step-circle">
             <img src="image/folder.png" alt="Ingresado" class="step-icon">
           </div>
           <span>Ingresado</span>
         </div>
-        <div class="progress-line" id="line1"></div>
+        <div class="progress-line completed" id="line1"></div>
         <div class="progress-step" id="step2">
           <div class="step-circle">
             <img src="image/list.png" alt="En Evaluación" class="step-icon">
@@ -71,50 +77,81 @@
         <div class="progress-line" id="line2"></div>
         <div class="progress-step" id="step3">
           <div class="step-circle">
-            <img src="image/Checkmark.png" alt="Finalizado" class="step-icon">
+            <img src="image/checkmark.png" alt="Finalizado" class="step-icon">
           </div>
           <span>Finalizado</span>
         </div>
       </div>
     </div>
 
-    <div class="details-container" id="detailsContainer">
-      <h3>Detalles del Siniestro</h3>
+    <div class="details-container" id="detailsContainer" style="display: none;">
+      <h3>Información del Siniestro</h3>
       <div class="details-grid">
-        <div class="detail-item">
-          <img src="image/folder.png" alt="RUT" class="detail-icon">
-          <span class="detail-label">RUT:</span>
-          <span class="detail-value" id="resRut">-</span>
+        <div class="detail-group">
+          <h4>Datos del Asegurado</h4>
+          <div class="detail-item">
+            <img src="image/user-icon.png" alt="Usuario" class="detail-icon">
+            <span class="detail-label">RUT:</span>
+            <span class="detail-value" id="resRut"></span>
+          </div>
+          <div class="detail-item">
+            <img src="image/policy-icon.png" alt="Póliza" class="detail-icon">
+            <span class="detail-label">Póliza:</span>
+            <span class="detail-value" id="resPoliza"></span>
+          </div>
+          <div class="detail-item">
+            <img src="image/email-icon.png" alt="Email" class="detail-icon">
+            <span class="detail-label">Email:</span>
+            <span class="detail-value" id="resEmail"></span>
+          </div>
+          <div class="detail-item">
+            <img src="image/phone-icon.png" alt="Teléfono" class="detail-icon">
+            <span class="detail-label">Teléfono:</span>
+            <span class="detail-value" id="resTelefono"></span>
+          </div>
         </div>
-        <div class="detail-item">
-          <img src="image/list.png" alt="Póliza" class="detail-icon">
-          <span class="detail-label">N° Póliza:</span>
-          <span class="detail-value" id="resPoliza">-</span>
+        
+        <div class="detail-group">
+          <h4>Detalles del Siniestro</h4>
+          <div class="detail-item">
+            <img src="image/damage-icon.png" alt="Daño" class="detail-icon">
+            <span class="detail-label">Tipo de Daño:</span>
+            <span class="detail-value" id="resDanio"></span>
+          </div>
+          <div class="detail-item">
+            <img src="image/car-icon.png" alt="Vehículo" class="detail-icon">
+            <span class="detail-label">Vehículo:</span>
+            <span class="detail-value" id="resVehiculo"></span>
+          </div>
+          <div class="detail-item">
+            <img src="image/tow-truck-icon.png" alt="Grúa" class="detail-icon">
+            <span class="detail-label">Grúa:</span>
+            <span class="detail-value" id="gruaInfo">Grúa XYZ</span>
+          </div>
+          <div class="detail-item">
+            <img src="image/garage-icon.png" alt="Taller" class="detail-icon">
+            <span class="detail-label">Taller:</span>
+            <span class="detail-value" id="tallerInfo">Taller ABC</span>
+          </div>
         </div>
-        <div class="detail-item">
-          <img src="image/YellowCheckMark.png" alt="Daño" class="detail-icon">
-          <span class="detail-label">Tipo de Daño:</span>
-          <span class="detail-value" id="resDanio">-</span>
-        </div>
-        <div class="detail-item">
-          <img src="image/Checkmark.png" alt="Vehículo" class="detail-icon">
-          <span class="detail-label">Vehículo:</span>
-          <span class="detail-value" id="resVehiculo">-</span>
-        </div>
-        <div class="detail-item">
-          <img src="image/folder.png" alt="Grúa" class="detail-icon">
-          <span class="detail-label">Grúa:</span>
-          <span class="detail-value" id="gruaInfo">-</span>
-        </div>
-        <div class="detail-item">
-          <img src="image/list.png" alt="Taller" class="detail-icon">
-          <span class="detail-label">Taller:</span>
-          <span class="detail-value" id="tallerInfo">-</span>
-        </div>
-        <div class="detail-item">
-          <img src="image/Checkmark.png" alt="Liquidador" class="detail-icon">
-          <span class="detail-label">Liquidador:</span>
-          <span class="detail-value" id="liquidadorInfo">-</span>
+        
+        <div class="detail-group">
+          <h4>Asignaciones</h4>
+          <div class="detail-item">
+            <img src="image/agent-icon.png" alt="Liquidador" class="detail-icon">
+            <span class="detail-label">Liquidador:</span>
+            <span class="detail-value" id="liquidadorInfo">María González</span>
+          </div>
+          <div class="detail-item">
+            <img src="image/calendar-icon.png" alt="Fecha" class="detail-icon">
+            <span class="detail-label">Fecha Registro:</span>
+            <span class="detail-value" id="fechaRegistro"></span>
+          </div>
+          <div class="detail-item">
+            <img src="image/status-icon.png" alt="Estado" class="detail-icon">
+            <span class="detail-label">Estado Actual:</span>
+            <span class="detail-value" id="estadoActual"></span>
+          </div>
         </div>
       </div>
     </div>

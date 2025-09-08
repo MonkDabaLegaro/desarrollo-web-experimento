@@ -4,20 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel Administrador - Sistema de Asistencia</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-  <header class="admin-header">
+  <header class="main-header">
     <div class="header-content">
-      <h1>Panel Administrador</h1>
+      <div class="header-logo">
+        <img src="image/logo.png" alt="Logo" class="logo-image">
+      </div>
+      <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
         <span>Bienvenido, <strong>Administrador</strong></span>
-        <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
+        <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
-  <nav class="admin-nav">
+  <nav class="main-nav">
     <ul>
       <li><a href="admin.html" class="active">Dashboard</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
@@ -26,15 +30,17 @@
     </ul>
   </nav>
 
-  <main class="admin-main">
+  <main class="main-content">
     <div class="welcome-section">
-      <h2>Bienvenido al Sistema de Gestión de Siniestros</h2>
+      <h2>Bienvenido al Panel de Administración</h2>
       <p>Desde este panel puedes gestionar todos los aspectos del sistema de asistencia vehicular.</p>
     </div>
 
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">📋</div>
+        <div class="stat-icon">
+          <img src="image/folder-icon.png" alt="Siniestros" class="stat-image">
+        </div>
         <div class="stat-content">
           <h3>Siniestros Activos</h3>
           <p class="stat-number">24</p>
@@ -43,7 +49,9 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">✅</div>
+        <div class="stat-icon">
+          <img src="image/checkmark-icon.png" alt="Completados" class="stat-image">
+        </div>
         <div class="stat-content">
           <h3>Completados Hoy</h3>
           <p class="stat-number">8</p>
@@ -52,7 +60,9 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">🚗</div>
+        <div class="stat-icon">
+          <img src="image/tow-truck-icon.png" alt="Grúas" class="stat-image">
+        </div>
         <div class="stat-content">
           <h3>Grúas Disponibles</h3>
           <p class="stat-number">12</p>
@@ -61,7 +71,9 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">🔧</div>
+        <div class="stat-icon">
+          <img src="image/garage-icon.png" alt="Talleres" class="stat-image">
+        </div>
         <div class="stat-content">
           <h3>Talleres Activos</h3>
           <p class="stat-number">6</p>
@@ -78,12 +90,16 @@
           <span>Nuevo Siniestro</span>
         </a>
         <a href="consulta.html" class="action-btn">
-          <img src="image/list.png" alt="Consultar" class="action-icon">
+          <img src="image/search-icon.png" alt="Consultar" class="action-icon">
           <span>Consultar Estado</span>
         </a>
         <a href="reporte.html" class="action-btn">
-          <img src="image/Checkmark.png" alt="Reportes" class="action-icon">
+          <img src="image/chart-icon.png" alt="Reportes" class="action-icon">
           <span>Ver Reportes</span>
+        </a>
+        <a href="#" class="action-btn">
+          <img src="image/user-icon.png" alt="Usuarios" class="action-icon">
+          <span>Gestionar Usuarios</span>
         </a>
       </div>
     </div>
@@ -108,11 +124,19 @@
           </div>
         </div>
         <div class="activity-item">
-          <img src="image/Checkmark.png" alt="Completado" class="activity-icon">
+          <img src="image/checkmark.png" alt="Completado" class="activity-icon">
           <div class="activity-content">
             <p><strong>Siniestro finalizado</strong></p>
             <small>Vehículo entregado al cliente</small>
             <span class="activity-time">Hace 2 horas</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <img src="image/user-icon.png" alt="Usuario" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Nuevo usuario registrado</strong></p>
+            <small>Carlos López - Liquidador</small>
+            <span class="activity-time">Hace 3 horas</span>
           </div>
         </div>
       </div>
