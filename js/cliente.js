@@ -29,16 +29,7 @@ function logout() {
 
 function adjustNavigation() {
   const navItems = document.querySelectorAll(".main-nav ul li a");
-  
-  // Ocultar opciones de admin para clientes
-  navItems.forEach(item => {
-    if (item.getAttribute("href") === "ingreso.html" || 
-        item.getAttribute("href") === "reporte.html" ||
-        item.getAttribute("href") === "admin.html") {
-      item.parentElement.style.display = "none";
-    }
-  });
-}
+
 
 function loadClientData() {
   // Simular carga de datos del cliente
@@ -96,4 +87,4 @@ function showNotification(message, type = 'info') {
       document.body.removeChild(notification);
     }, 300);
   }, 3000);
-}
+}}

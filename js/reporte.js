@@ -1,68 +1,113 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Verificar autenticación
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const userType = localStorage.getItem("userType");
+    document.addEventListener("DOMContentLoaded", () => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const userType = localStorage.getItem("userType");
   
-  if (isLoggedIn !== "true") {
-    localStorage.setItem("redirectAfterLogin", "reporte.html");
-    window.location.href = "login.html";
-    return;
-  }
+    // Verificar si el usuario está autenticado
+    if (isLoggedIn !== "true") {
+      localStorage.setItem("redirectAfterLogin", "reporte.html");
+      window.location.href = "login.html";
+      return;
+    }
   
-  // Actualizar tipo de usuario en la interfaz
-  const userTypeDisplay = document.getElementById("userTypeDisplay");
-  if (userTypeDisplay && userType) {
-    userTypeDisplay.textContent = userType === "admin" ? "Administrador" : "Cliente";
-  }
-  
-  // Configurar navegación según tipo de usuario
-  const navInicio = document.getElementById("nav-inicio");
-  if (navInicio) {
-    navInicio.href = userType === "admin" ? "admin.html" : "cliente.html";
-  }
-  
-  // Cargar reportes
-  loadReports();
-});
+    // Actualizar la bienvenida según el tipo de usuario
+    const userTypeDisplay = document.getElementById("userTypeDisplay");
+    if (userTypeDisplay && userType) {
+      userTypeDisplay.textContent = userType === "admin" ? "Administrador" : "Cliente";
+    }
+      
+      // 1. Estadísticas generales
+      const stats = siniestroManager.getEstadisticas();
 
-function loadReports() {
-  // Estadísticas generales
-  const stats = siniestroManager.getEstadisticas();
-  
-  // Actualizar datos en la tabla
-  updateTableData();
-  
-  console.log("Estadísticas cargadas:", stats);
-}
+      new Chart(document.getElementById("chartEstados"), {
+        type: "bar",
+        data: {
+          labels: ["Ingresados", "En Evaluación", "Finalizados", "Activos"],
+          datasets: [{
+            label: "Cantidad",
+            data: [stats.ingresados, stats.enEvaluacion, stats.finalizados, stats.activos],
+            backgroundColor: ["#3498db", "#f1c40f", "#2ecc71", "#e67e22"]
+          }]
+        }
+      });
 
-function updateTableData() {
-  const tbody = document.querySelector(".report-table tbody");
-  const siniestros = siniestroManager.siniestros;
-  
-  tbody.innerHTML = ""; // Limpiar tabla
-  
-  if (siniestros.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" class="no-data">No hay siniestros registrados</td></tr>';
-    return;
-  }
-  
-  siniestros.forEach(siniestro => {
-    const tr = document.createElement("tr");
-    
-    let statusClass = 'status-pending';
-    if (siniestro.estado === 'Finalizado') statusClass = 'status-completed';
-    else if (siniestro.estado === 'En Evaluación') statusClass = 'status-processing';
-    
-    tr.innerHTML = `
-      <td>${siniestro.id}</td>
-      <td>${formatearFecha(siniestro.fechaRegistro)}</td>
-      <td>${siniestro.nombreCliente || 'N/A'}</td>
-      <td>${siniestro.numeroPoliza}</td>
-      <td>${siniestro.tipoSeguro}</td>
-      <td>${siniestro.liquidador}</td>
-      <td><span class="${statusClass}">${siniestro.estado}</span></td>
-    `;
-    
-    tbody.appendChild(tr);
+      // 2. Tipos de daño
+      const tipos = siniestroManager.getEstadisticasPorTipo();
+      new Chart(document.getElementById("chartTipos"), {
+        type: "pie",
+        data: {
+          labels: Object.keys(tipos),
+          datasets: [{
+            data: Object.values(tipos),
+            backgroundColor: ["#e74c3c", "#9b59b6", "#1abc9c", "#f39c12"]
+          }]
+        }
+      });
+
+      // 3. Siniestros por liquidador
+      const liquidadores = siniestroManager.getEstadisticasPorLiquidador();
+      new Chart(document.getElementById("chartLiquidadores"), {
+        type: "line",
+        data: {
+          labels: Object.keys(liquidadores),
+          datasets: [{
+            label: "Total por liquidador",
+            data: Object.values(liquidadores).map(l => l.total),
+            borderColor: "#2980b9",
+            fill: false,
+            tension: 0.3
+          }]
+        }
+      });
+
+      // 4. Últimos 5 siniestros
+        const recientes = siniestroManager.getSiniestrosRecientes();
+        const lista = document.getElementById("listaRecientes");
+        lista.innerHTML = ""; // limpiar antes de renderizar
+
+        recientes.forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = `${formatearFechaHora(s.fechaRegistro)} | RUT: ${s.rut} | Póliza: ${s.numeroPoliza} | Daño: ${s.tipoSeguro} | Estado: ${s.estado}`;
+        lista.appendChild(li);
+      });
+    });
+
+      document.addEventListener("DOMContentLoaded", () => {
+    // Estadísticas
+    const stats = siniestroManager.getEstadisticas();
+
+    new Chart(document.getElementById("chartEstados"), {
+      type: "bar",
+      data: {
+        labels: ["Ingresados", "En Evaluación", "Finalizados", "Activos"],
+        datasets: [{
+          label: "Cantidad",
+          data: [stats.ingresados, stats.enEvaluacion, stats.finalizados, stats.activos],
+          backgroundColor: ["#3498db", "#f1c40f", "#2ecc71", "#e67e22"]
+        }]
+      }
+    });
+
+    // Tipos de daño
+    const tipos = siniestroManager.getEstadisticasPorTipo();
+    new Chart(document.getElementById("chartTipos"), {
+      type: "pie",
+      data: {
+        labels: Object.keys(tipos),
+        datasets: [{
+          data: Object.values(tipos),
+          backgroundColor: ["#e74c3c", "#9b59b6", "#1abc9c", "#f39c12"]
+        }]
+      }
+    });
+
+    // Últimos 5 siniestros
+    const recientes = siniestroManager.getSiniestrosRecientes();
+    const lista = document.getElementById("listaRecientes");
+    lista.innerHTML = ""; // limpiar antes de renderizar
+
+    recientes.forEach(s => {
+      const li = document.createElement("li");
+      li.textContent = `${formatearFechaHora(s.fechaRegistro)} | RUT: ${s.rut} | Póliza: ${s.numeroPoliza} | Daño: ${s.tipoSeguro} | Estado: ${s.estado}`;
+      lista.appendChild(li);
+    });
   });
-}
