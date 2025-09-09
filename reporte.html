@@ -6,6 +6,7 @@
   <title>Reportes - Sistema de Asistencia</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/reporte.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header class="main-header">
@@ -15,15 +16,15 @@
       </div>
       <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
-        <span>Bienvenido, <strong id="userTypeDisplay">Usuario</strong></span>
-        <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+        <span>Bienvenido, <strong id="userTypeDisplay">Administrador</strong></span>
+        <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
   <nav class="main-nav">
     <ul>
-      <li><a href="#" id="nav-inicio">Inicio</a></li>
+      <li><a href="admin.html">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consulta de Estado</a></li>
       <li><a href="reporte.html" class="active">Reportes</a></li>
@@ -31,120 +32,32 @@
   </nav>
 
   <main class="main-content">
-    <div class="welcome-section">
-      <h2>Reportes y Estadísticas</h2>
-      <p>Consulte reportes detallados y estadísticas del sistema de gestión de siniestros.</p>
-    </div>
-
-    <div class="reports-header">
-      <h3>Filtros de Reportes</h3>
-      <div class="reports-filters">
-        <div class="filter-group">
-          <label for="fechaInicio">Fecha Inicio</label>
-          <input type="date" id="fechaInicio">
-        </div>
-        <div class="filter-group">
-          <label for="fechaFin">Fecha Fin</label>
-          <input type="date" id="fechaFin">
-        </div>
-        <div class="filter-group">
-          <label for="tipoReporte">Tipo de Reporte</label>
-          <select id="tipoReporte">
-            <option value="siniestros">Siniestros por Estado</option>
-            <option value="liquidadores">Desempeño de Liquidadores</option>
-            <option value="talleres">Siniestros por Taller</option>
-            <option value="tipos">Tipos de Siniestros</option>
-          </select>
-        </div>
-        <div class="filter-actions">
-          <button class="btn btn-primary">
-            <img src="image/list.png" alt="Filtrar" class="btn-icon">
-            Generar Reporte
-          </button>
-          <button class="btn btn-secondary">
-            <img src="image/folder.png" alt="Descargar" class="btn-icon">
-            Exportar
-          </button>
-        </div>
-      </div>
-    </div>
-
     <div class="dashboard">
       <div class="chart-container">
-        <h3>Siniestros por Estado</h3>
-        <div class="pie-chart"></div>
-        <div class="pie-legend">
-          <div class="legend-item">
-            <span class="legend-color legend-1"></span>
-            <span>Ingresados (35%)</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color legend-2"></span>
-            <span>En Evaluación (45%)</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color legend-3"></span>
-            <span>Finalizados (20%)</span>
-          </div>
-        </div>
+        <h3>Estados de los Siniestros</h3>
+        <canvas id="chartEstados"></canvas>
       </div>
 
       <div class="chart-container">
-        <h3>Siniestros por Mes</h3>
-        <div class="bar-chart">
-          <div class="bar" style="height: 60%;" title="Enero: 12"></div>
-          <div class="bar" style="height: 80%;" title="Febrero: 16"></div>
-          <div class="bar" style="height: 45%;" title="Marzo: 9"></div>
-          <div class="bar" style="height: 90%;" title="Abril: 18"></div>
-          <div class="bar" style="height: 75%;" title="Mayo: 15"></div>
-          <div class="bar" style="height: 65%;" title="Junio: 13"></div>
-        </div>
-        <div class="chart-labels">
-          <span>Ene</span>
-          <span>Feb</span>
-          <span>Mar</span>
-          <span>Abr</span>
-          <span>May</span>
-          <span>Jun</span>
-        </div>
+        <h3>Tipos de Daño</h3>
+        <canvas id="chartTipos"></canvas>
       </div>
-    </div>
 
-    <div class="data-table">
-      <h3>Detalle de Siniestros</h3>
-      <table class="report-table" id="reportTable">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Fecha</th>
-            <th>Cliente</th>
-            <th>Póliza</th>
-            <th>Tipo</th>
-            <th>Liquidador</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="7" class="no-data">No hay siniestros registrados</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="chart-container">
+        <h3>Siniestros por Liquidador</h3>
+        <canvas id="chartLiquidadores"></canvas>
+      </div>
 
-    <div class="report-actions">
-      <button class="export-btn">
-        <img src="image/folder.png" alt="PDF" class="export-icon">
-        Exportar a PDF
-      </button>
-      <button class="export-btn">
-        <img src="image/list.png" alt="Excel" class="export-icon">
-        Exportar a Excel
-      </button>
+      <div class="chart-container">
+        <h3>Siniestros Recientes (Últimos 5)</h3>
+        <ul id="listaRecientes"></ul>
+      </div>
     </div>
   </main>
 
+  <!-- Scripts -->
   <script src="js/siniestro.js"></script>
   <script src="js/reporte.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
