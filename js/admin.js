@@ -14,23 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
   loadDashboardData();
 });
 
-function logout() {
-  // Limpiar datos de sesión
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("userType");
-  localStorage.removeItem("redirectAfterLogin");
-  
-  // Redirigir al login
-  window.location.href = "login.html";
-}
-
 function loadDashboardData() {
   // Cargar estadísticas reales desde siniestroManager
   const stats = siniestroManager.getEstadisticas();
   
   // Actualizar los números en el dashboard
-  document.querySelector('.stat-card:nth-child(1) .stat-number').textContent = stats.activos;
-  document.querySelector('.stat-card:nth-child(2) .stat-number').textContent = stats.finalizados;
+  document.getElementById('siniestros-activos').textContent = stats.activos;
+  document.getElementById('siniestros-completados').textContent = stats.finalizados;
+  document.getElementById('siniestros-evaluacion').textContent = stats.enEvaluacion;
+  document.getElementById('siniestros-total').textContent = stats.total;
   
   // Animar números
   animateNumbers();
@@ -60,11 +52,16 @@ function animateNumbers() {
 }
 
 function loadRecentActivity() {
-  const activityList = document.querySelector('.activity-list');
+  const activityList = document.getElementById('activity-list');
   const recentSiniestros = siniestroManager.getSiniestrosRecientes(4);
   
   // Limpiar actividades existentes
   activityList.innerHTML = '';
+  
+  if (recentSiniestros.length === 0) {
+    activityList.innerHTML = '<div class="no-activity"><p>No hay actividad reciente. Los siniestros registrados aparecerán aquí.</p></div>';
+    return;
+  }
   
   // Agregar actividades reales
   recentSiniestros.forEach(siniestro => {
@@ -112,4 +109,9 @@ function timeSince(date) {
   interval = seconds / 60;
   if (interval > 1) return Math.floor(interval) + " minutos";
   return Math.floor(seconds) + " segundos";
+}
+
+// Función para actualizar estadísticas (llamada desde otros archivos)
+function actualizarEstadisticas() {
+  loadDashboardData();
 }

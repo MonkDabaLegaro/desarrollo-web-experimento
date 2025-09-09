@@ -23,7 +23,7 @@
 
   <nav class="main-nav">
     <ul>
-      <li><a href="admin.html">Inicio</a></li>
+      <li><a href="#" id="nav-inicio">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
       <li><a href="reporte.html">Reportes</a></li>
@@ -41,8 +41,8 @@
         <div class="form-row">
           <div class="form-group">
             <label for="rutConsulta">RUT del Asegurado</label>
-            <input type="text" id="rutConsulta" placeholder="12.345.678-9" required>
-            <p class="info-text">Formato: 12.345.678-9</p>
+            <input type="text" id="rutConsulta" placeholder="12345678-9" required>
+            <p class="info-text">Formato: 12345678-9</p>
           </div>
           <div class="form-group">
             <label for="polizaConsulta">Número de Póliza</label>
@@ -51,7 +51,7 @@
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary">
-            <img src="image/search-icon.png" alt="Consultar" class="btn-icon">
+            <img src="image/list.png" alt="Consultar" class="btn-icon">
             Consultar Estado
           </button>
         </div>
@@ -77,7 +77,7 @@
         <div class="progress-line" id="line2"></div>
         <div class="progress-step" id="step3">
           <div class="step-circle">
-            <img src="image/checkmark.png" alt="Finalizado" class="step-icon">
+            <img src="image/Checkmark.png" alt="Finalizado" class="step-icon">
           </div>
           <span>Finalizado</span>
         </div>
@@ -90,22 +90,22 @@
         <div class="detail-group">
           <h4>Datos del Asegurado</h4>
           <div class="detail-item">
-            <img src="image/user-icon.png" alt="Usuario" class="detail-icon">
+            <img src="image/folder.png" alt="Usuario" class="detail-icon">
             <span class="detail-label">RUT:</span>
             <span class="detail-value" id="resRut"></span>
           </div>
           <div class="detail-item">
-            <img src="image/policy-icon.png" alt="Póliza" class="detail-icon">
+            <img src="image/folder.png" alt="Póliza" class="detail-icon">
             <span class="detail-label">Póliza:</span>
             <span class="detail-value" id="resPoliza"></span>
           </div>
           <div class="detail-item">
-            <img src="image/email-icon.png" alt="Email" class="detail-icon">
+            <img src="image/list.png" alt="Email" class="detail-icon">
             <span class="detail-label">Email:</span>
             <span class="detail-value" id="resEmail"></span>
           </div>
           <div class="detail-item">
-            <img src="image/phone-icon.png" alt="Teléfono" class="detail-icon">
+            <img src="image/list.png" alt="Teléfono" class="detail-icon">
             <span class="detail-label">Teléfono:</span>
             <span class="detail-value" id="resTelefono"></span>
           </div>
@@ -114,22 +114,22 @@
         <div class="detail-group">
           <h4>Detalles del Siniestro</h4>
           <div class="detail-item">
-            <img src="image/damage-icon.png" alt="Daño" class="detail-icon">
+            <img src="image/YellowCheckMark.png" alt="Daño" class="detail-icon">
             <span class="detail-label">Tipo de Daño:</span>
             <span class="detail-value" id="resDanio"></span>
           </div>
           <div class="detail-item">
-            <img src="image/car-icon.png" alt="Vehículo" class="detail-icon">
+            <img src="image/folder.png" alt="Vehículo" class="detail-icon">
             <span class="detail-label">Vehículo:</span>
             <span class="detail-value" id="resVehiculo"></span>
           </div>
           <div class="detail-item">
-            <img src="image/tow-truck-icon.png" alt="Grúa" class="detail-icon">
+            <img src="image/list.png" alt="Grúa" class="detail-icon">
             <span class="detail-label">Grúa:</span>
             <span class="detail-value" id="gruaInfo">Grúa XYZ</span>
           </div>
           <div class="detail-item">
-            <img src="image/garage-icon.png" alt="Taller" class="detail-icon">
+            <img src="image/YellowCheckMark.png" alt="Taller" class="detail-icon">
             <span class="detail-label">Taller:</span>
             <span class="detail-value" id="tallerInfo">Taller ABC</span>
           </div>
@@ -138,17 +138,17 @@
         <div class="detail-group">
           <h4>Asignaciones</h4>
           <div class="detail-item">
-            <img src="image/agent-icon.png" alt="Liquidador" class="detail-icon">
+            <img src="image/folder.png" alt="Liquidador" class="detail-icon">
             <span class="detail-label">Liquidador:</span>
             <span class="detail-value" id="liquidadorInfo">María González</span>
           </div>
           <div class="detail-item">
-            <img src="image/calendar-icon.png" alt="Fecha" class="detail-icon">
+            <img src="image/list.png" alt="Fecha" class="detail-icon">
             <span class="detail-label">Fecha Registro:</span>
             <span class="detail-value" id="fechaRegistro"></span>
           </div>
           <div class="detail-item">
-            <img src="image/status-icon.png" alt="Estado" class="detail-icon">
+            <img src="image/Checkmark.png" alt="Estado" class="detail-icon">
             <span class="detail-label">Estado Actual:</span>
             <span class="detail-value" id="estadoActual"></span>
           </div>

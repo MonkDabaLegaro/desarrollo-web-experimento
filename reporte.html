@@ -15,7 +15,7 @@
       </div>
       <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
-        <span>Bienvenido, <strong id="userTypeDisplay">Administrador</strong></span>
+        <span>Bienvenido, <strong id="userTypeDisplay">Usuario</strong></span>
         <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
       </div>
     </div>
@@ -23,7 +23,7 @@
 
   <nav class="main-nav">
     <ul>
-      <li><a href="admin.html">Inicio</a></li>
+      <li><a href="#" id="nav-inicio">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consulta de Estado</a></li>
       <li><a href="reporte.html" class="active">Reportes</a></li>
@@ -58,11 +58,11 @@
         </div>
         <div class="filter-actions">
           <button class="btn btn-primary">
-            <img src="image/filter-icon.png" alt="Filtrar" class="btn-icon">
+            <img src="image/list.png" alt="Filtrar" class="btn-icon">
             Generar Reporte
           </button>
           <button class="btn btn-secondary">
-            <img src="image/download-icon.png" alt="Descargar" class="btn-icon">
+            <img src="image/folder.png" alt="Descargar" class="btn-icon">
             Exportar
           </button>
         </div>
@@ -72,9 +72,7 @@
     <div class="dashboard">
       <div class="chart-container">
         <h3>Siniestros por Estado</h3>
-        <div class="pie-chart">
-          <!-- Gráfico circular -->
-        </div>
+        <div class="pie-chart"></div>
         <div class="pie-legend">
           <div class="legend-item">
             <span class="legend-color legend-1"></span>
@@ -114,7 +112,7 @@
 
     <div class="data-table">
       <h3>Detalle de Siniestros</h3>
-      <table class="report-table">
+      <table class="report-table" id="reportTable">
         <thead>
           <tr>
             <th>ID</th>
@@ -128,49 +126,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>1001</td>
-            <td>15/06/2023</td>
-            <td>Juan Pérez</td>
-            <td>POL12345</td>
-            <td>Automóvil</td>
-            <td>María González</td>
-            <td><span class="status-completed">Finalizado</span></td>
-          </tr>
-          <tr>
-            <td>1002</td>
-            <td>18/06/2023</td>
-            <td>Ana Silva</td>
-            <td>POL12346</td>
-            <td>Hogar</td>
-            <td>Carlos López</td>
-            <td><span class="status-processing">En Evaluación</span></td>
-          </tr>
-          <tr>
-            <td>1003</td>
-            <td>20/06/2023</td>
-            <td>Roberto Díaz</td>
-            <td>POL12347</td>
-            <td>Automóvil</td>
-            <td>Pedro Martínez</td>
-            <td><span class="status-pending">Ingresado</span></td>
-          </tr>
-          <tr>
-            <td>1004</td>
-            <td>22/06/2023</td>
-            <td>Laura Méndez</td>
-            <td>POL12348</td>
-            <td>Vida</td>
-            <td>Luis Rodríguez</td>
-            <td><span class="status-processing">En Evaluación</span></td>
-          </tr>
-          <tr>
-            <td>1005</td>
-            <td>25/06/2023</td>
-            <td>Carlos Ruiz</td>
-            <td>POL12349</td>
-            <td>Automóvil</td>
-            <td>Carmen Morales</td>
-            <td><span class="status-completed">Finalizado</span></td>
+            <td colspan="7" class="no-data">No hay siniestros registrados</td>
           </tr>
         </tbody>
       </table>
@@ -178,11 +134,11 @@
 
     <div class="report-actions">
       <button class="export-btn">
-        <img src="image/pdf-icon.png" alt="PDF" class="export-icon">
+        <img src="image/folder.png" alt="PDF" class="export-icon">
         Exportar a PDF
       </button>
       <button class="export-btn">
-        <img src="image/excel-icon.png" alt="Excel" class="export-icon">
+        <img src="image/list.png" alt="Excel" class="export-icon">
         Exportar a Excel
       </button>
     </div>

@@ -1,70 +1,11 @@
 /* === ESTILOS ESPECÍFICOS PARA INGRESO === */
 
-.ingreso-header {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
-}
-
-.ingreso-header h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.ingreso-header p {
-  color: #666;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Formulario de ingreso */
-.ingreso-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
-}
-
-.form-section {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.form-section:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.form-section h3 {
-  font-size: 1.3rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.section-icon {
-  width: 24px;
-  height: 24px;
-  opacity: 0.7;
-}
-
-/* Estilos específicos para el formulario de ingreso */
+/* Campos con iconos */
 .input-with-icon {
   position: relative;
 }
 
-.input-with-icon input,
-.input-with-icon select,
-.input-with-icon textarea {
+.input-with-icon input {
   padding-right: 45px;
 }
 
@@ -78,13 +19,7 @@
   opacity: 0.6;
 }
 
-.hint {
-  font-size: 0.85rem;
-  color: #888;
-  margin-top: 0.25rem;
-}
-
-/* Estilos para subida de archivos */
+/* Subida de archivos */
 .file-upload {
   grid-column: 1 / -1;
 }
@@ -130,37 +65,6 @@
   margin-top: 0.5rem;
 }
 
-/* Campos de ubicación */
-.location-fields {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1rem;
-}
-
-/* Campos de vehículo */
-.vehicle-fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
-
-/* Campos de contacto */
-.contact-fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-/* Campos de descripción */
-.description-field {
-  grid-column: 1 / -1;
-}
-
-.description-field textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
 /* Acciones del formulario */
 .form-actions {
   display: flex;
@@ -169,24 +73,8 @@
   justify-content: flex-start;
 }
 
-.btn-icon {
-  width: 16px;
-  height: 16px;
-  filter: brightness(0) invert(1);
-}
-
-.btn-secondary .btn-icon {
-  filter: none;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-  .location-fields,
-  .vehicle-fields,
-  .contact-fields {
-    grid-template-columns: 1fr;
-  }
-  
   .form-actions {
     flex-direction: column;
   }

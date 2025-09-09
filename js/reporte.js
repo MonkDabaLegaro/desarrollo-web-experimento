@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Verificar autenticación y permisos
+  // Verificar autenticación
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const userType = localStorage.getItem("userType");
   
-  if (isLoggedIn !== "true" || userType !== "admin") {
+  if (isLoggedIn !== "true") {
     localStorage.setItem("redirectAfterLogin", "reporte.html");
     window.location.href = "login.html";
     return;
@@ -11,8 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Actualizar tipo de usuario en la interfaz
   const userTypeDisplay = document.getElementById("userTypeDisplay");
-  if (userTypeDisplay) {
-    userTypeDisplay.textContent = "Administrador";
+  if (userTypeDisplay && userType) {
+    userTypeDisplay.textContent = userType === "admin" ? "Administrador" : "Cliente";
+  }
+  
+  // Configurar navegación según tipo de usuario
+  const navInicio = document.getElementById("nav-inicio");
+  if (navInicio) {
+    navInicio.href = userType === "admin" ? "admin.html" : "cliente.html";
   }
   
   // Cargar reportes
@@ -20,33 +26,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadReports() {
-  // 1. Estadísticas generales
+  // Estadísticas generales
   const stats = siniestroManager.getEstadisticas();
   
   // Actualizar datos en la tabla
   updateTableData();
   
-  // Aquí iría la lógica para los gráficos si tuvieras una biblioteca como Chart.js
   console.log("Estadísticas cargadas:", stats);
 }
 
 function updateTableData() {
   const tbody = document.querySelector(".report-table tbody");
-  const siniestros = siniestroManager.siniestros.slice(0, 5); // Últimos 5 siniestros
+  const siniestros = siniestroManager.siniestros;
   
   tbody.innerHTML = ""; // Limpiar tabla
+  
+  if (siniestros.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="no-data">No hay siniestros registrados</td></tr>';
+    return;
+  }
   
   siniestros.forEach(siniestro => {
     const tr = document.createElement("tr");
     
+    let statusClass = 'status-pending';
+    if (siniestro.estado === 'Finalizado') statusClass = 'status-completed';
+    else if (siniestro.estado === 'En Evaluación') statusClass = 'status-processing';
+    
     tr.innerHTML = `
       <td>${siniestro.id}</td>
       <td>${formatearFecha(siniestro.fechaRegistro)}</td>
-      <td>${siniestro.nombreCliente || siniestro.rut}</td>
+      <td>${siniestro.nombreCliente || 'N/A'}</td>
       <td>${siniestro.numeroPoliza}</td>
       <td>${siniestro.tipoSeguro}</td>
       <td>${siniestro.liquidador}</td>
-      <td><span class="status-${siniestro.estado === 'Finalizado' ? 'completed' : siniestro.estado === 'En Evaluación' ? 'processing' : 'pending'}">${siniestro.estado}</span></td>
+      <td><span class="${statusClass}">${siniestro.estado}</span></td>
     `;
     
     tbody.appendChild(tr);

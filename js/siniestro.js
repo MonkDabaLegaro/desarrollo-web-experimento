@@ -184,7 +184,7 @@ class SiniestroManager {
     }
 }
 
-// ✅ Función corregida: validar RUT sin puntos, solo con guion y dígito numérico o K
+// Función para validar RUT chileno
 function validarRUT(rut) {
     // Limpiar el RUT
     rut = rut.replace(/\s/g, '').toUpperCase();
@@ -246,12 +246,11 @@ function formatearFechaHora(fecha) {
     });
 }
 
-// Instancia global del manager
-const siniestroManager = new SiniestroManager();
-
 // Función para mostrar alertas
-function mostrarAlerta(mensaje, tipo) {
+function mostrarAlerta(mensaje, tipo = 'error') {
     const alertBox = document.getElementById('alertBox');
+    if (!alertBox) return;
+    
     alertBox.innerHTML = `
         <div class="alert alert-${tipo}">
             ${mensaje}
@@ -264,53 +263,25 @@ function mostrarAlerta(mensaje, tipo) {
     }, 5000);
 }
 
-// Actualizar estadísticas en el dashboard
-function actualizarEstadisticas() {
-    const stats = siniestroManager.getEstadisticas();
-    document.getElementById('total-siniestros').textContent = stats.total;
-    document.getElementById('activos-siniestros').textContent = stats.activos;
-    document.getElementById('finalizados-siniestros').textContent = stats.finalizados;
+// Función para validar email
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
 }
 
-// Captura de formulario en ingreso.html
-document.addEventListener("DOMContentLoaded", () => {
-    const formulario = document.getElementById("form-siniestro");
-    if (!formulario) return;
-    
-    // Actualizar estadísticas al cargar la página
-    actualizarEstadisticas();
+// Función para validar teléfono chileno
+function validarTelefono(telefono) {
+    const regex = /^(\+56\s?)?[9]\s?\d{4}\s?\d{4}$/;
+    return regex.test(telefono);
+}
 
-    formulario.addEventListener("submit", (e) => {
-        e.preventDefault();
+// Función para logout
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userType");
+    localStorage.removeItem("redirectAfterLogin");
+    window.location.href = "login.html";
+}
 
-        const rut = document.getElementById("rut").value.trim();
-        const numeroPoliza = document.getElementById("poliza").value.trim();
-        const tipoDanio = document.getElementById("tipoDanio").value;
-        const tipoVehiculo = document.getElementById("tipoVehiculo").value;
-        const email = document.getElementById("email").value.trim();
-        const telefono = document.getElementById("telefono").value.trim();
-
-        if (!validarRUT(rut)) {
-            mostrarAlerta("RUT inválido. Formato esperado: 12345678-9 (7 u 8 dígitos, guión y dígito verificador)", "error");
-            return;
-        }
-
-        const datos = {
-            rut: formatearRUT(rut),
-            numeroPoliza,
-            tipoSeguro: tipoDanio,
-            vehiculo: tipoVehiculo,
-            email,
-            telefono
-        };
-
-        const nuevo = siniestroManager.crearSiniestro(datos);
-        mostrarAlerta(`✅ Siniestro creado exitosamente con ID: ${nuevo.id}. Se asignó a: ${nuevo.liquidador}`, "success");
-        
-        // Actualizar estadísticas
-        actualizarEstadisticas();
-        
-        // Limpiar formulario
-        formulario.reset();
-    });
-});
+// Instancia global del manager
+const siniestroManager = new SiniestroManager();

@@ -29,16 +29,10 @@ body {
   align-items: center;
 }
 
-.header-content h1 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  flex: 1;
-}
-
 .header-logo {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+  gap: 1rem;
 }
 
 .logo-image {
@@ -46,6 +40,17 @@ body {
   height: 75px;
   border-radius: 50%;
   padding: 4px;
+}
+
+.header-content h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .user-info {
@@ -309,6 +314,12 @@ body {
   margin-left: auto;
 }
 
+.no-activity {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
 /* === FORMULARIOS === */
 .form-container {
   background: white;
@@ -338,7 +349,8 @@ body {
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -347,10 +359,23 @@ body {
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 0.25rem;
+}
+
+.info-text {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 0.25rem;
 }
 
 /* === BOTONES === */
@@ -392,6 +417,20 @@ body {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+.btn-secondary .btn-icon {
+  filter: none;
+}
+
+.btn-secondary:hover .btn-icon {
+  filter: brightness(0) invert(1);
+}
+
 /* === ALERTAS === */
 .alert {
   padding: 1rem 1.5rem;
@@ -404,24 +443,21 @@ body {
 }
 
 .alert-success {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #064e3b;
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
 }
 
 .alert-error {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: #fee2e2;
   color: #7f1d1d;
+  border: 1px solid #ef4444;
 }
 
 .alert-warning {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  background: #fef3c7;
   color: #92400e;
-}
-
-.alert-icon {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1);
+  border: 1px solid #fbbf24;
 }
 
 /* === LOGIN === */
@@ -518,11 +554,6 @@ body {
   gap: 1rem;
   margin-top: 2rem;
   flex-wrap: wrap;
-}
-
-.btn-icon {
-  width: 16px;
-  height: 16px;
 }
 
 /* === ANIMACIONES === */

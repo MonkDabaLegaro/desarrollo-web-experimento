@@ -15,8 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     userTypeDisplay.textContent = userType === "admin" ? "Administrador" : "Cliente";
   }
   
-  // Ajustar navegación según tipo de usuario
-  adjustNavigation(userType);
+  // Configurar navegación según tipo de usuario
+  const navInicio = document.getElementById("nav-inicio");
+  if (navInicio) {
+    navInicio.href = userType === "admin" ? "admin.html" : "cliente.html";
+  }
 
   const formulario = document.getElementById("consultaForm");
   const progressContainer = document.getElementById("progressContainer");
@@ -29,14 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const numeroPoliza = document.getElementById("polizaConsulta").value.trim();
 
     if (!validarRUT(rut)) {
-      mostrarAlerta("RUT inválido. Formato esperado: 12345678-9");
+      mostrarAlerta("RUT inválido. Formato esperado: 12345678-9", "error");
       return;
     }
 
     const siniestro = siniestroManager.buscarSiniestro(rut, numeroPoliza);
 
     if (!siniestro) {
-      mostrarAlerta("No se encontró información para el RUT y póliza ingresados");
+      mostrarAlerta("No se encontró información para el RUT y póliza ingresados", "error");
       progressContainer.style.display = "none";
       detailsContainer.style.display = "none";
       return;
@@ -51,50 +54,42 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("resEmail").textContent = siniestro.email;
     document.getElementById("resTelefono").textContent = siniestro.telefono;
     document.getElementById("resDanio").textContent = siniestro.tipoSeguro;
-    document.getElementById("resVehiculo").textContent = siniestro.vehiculo;
+    document.getElementById("resVehiculo").textContent = `${siniestro.marca} ${siniestro.modelo} (${siniestro.patente})`;
     document.getElementById("liquidadorInfo").textContent = siniestro.liquidador;
+    document.getElementById("gruaInfo").textContent = siniestro.grua;
+    document.getElementById("tallerInfo").textContent = siniestro.taller;
     document.getElementById("fechaRegistro").textContent = formatearFecha(siniestro.fechaRegistro);
     document.getElementById("estadoActual").textContent = siniestro.estado;
 
     progressContainer.style.display = "block";
     detailsContainer.style.display = "block";
+    
+    mostrarAlerta("Información encontrada exitosamente", "success");
   });
 });
 
 function updateProgress(estado) {
   // Resetear todos los pasos
-  document.getElementById("step1").classList.remove("completed");
-  document.getElementById("step2").classList.remove("completed");
-  document.getElementById("step3").classList.remove("completed");
+  document.getElementById("step1").classList.remove("completed", "current");
+  document.getElementById("step2").classList.remove("completed", "current");
+  document.getElementById("step3").classList.remove("completed", "current");
   document.getElementById("line1").classList.remove("completed");
   document.getElementById("line2").classList.remove("completed");
 
   // Marcar pasos según el estado
-  if (estado === "Ingresado" || estado === "En Evaluación" || estado === "Finalizado") {
+  if (estado === "Ingresado") {
+    document.getElementById("step1").classList.add("completed");
+    document.getElementById("step2").classList.add("current");
+  } else if (estado === "En Evaluación") {
     document.getElementById("step1").classList.add("completed");
     document.getElementById("line1").classList.add("completed");
-  }
-  
-  if (estado === "En Evaluación" || estado === "Finalizado") {
+    document.getElementById("step2").classList.add("completed");
+    document.getElementById("step3").classList.add("current");
+  } else if (estado === "Finalizado") {
+    document.getElementById("step1").classList.add("completed");
+    document.getElementById("line1").classList.add("completed");
     document.getElementById("step2").classList.add("completed");
     document.getElementById("line2").classList.add("completed");
-  }
-  
-  if (estado === "Finalizado") {
     document.getElementById("step3").classList.add("completed");
-  }
-}
-
-function adjustNavigation(userType) {
-  const navItems = document.querySelectorAll(".main-nav ul li a");
-  
-  if (userType === "cliente") {
-    // Ocultar opciones de admin para clientes
-    navItems.forEach(item => {
-      if (item.getAttribute("href") === "ingreso.html" || 
-          item.getAttribute("href") === "reporte.html") {
-        item.parentElement.style.display = "none";
-      }
-    });
   }
 }
