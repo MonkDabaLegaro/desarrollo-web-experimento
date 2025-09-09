@@ -1,5 +1,50 @@
 /* === ESTILOS ESPECÍFICOS PARA CONSULTA === */
 
+.search-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.search-section h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search-button {
+  padding: 0.75rem 1.5rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background: #1d4ed8;
+}
+
 /* Barra de progreso específica */
 .progress-container {
   background: white;
@@ -7,7 +52,6 @@
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
-  display: none;
 }
 
 .progress-container h3 {
@@ -21,7 +65,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -31,6 +75,7 @@
   align-items: center;
   gap: 0.5rem;
   position: relative;
+  flex: 1;
 }
 
 .step-circle {
@@ -42,6 +87,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  z-index: 2;
 }
 
 .progress-step.completed .step-circle {
@@ -65,20 +111,28 @@
 }
 
 .progress-line {
-  width: 100px;
   height: 3px;
   background: #e5e7eb;
-  margin: 0 1rem;
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  right: -50%;
+  z-index: 1;
 }
 
 .progress-line.completed {
   background: #10b981;
 }
 
+.progress-step:last-child .progress-line {
+  display: none;
+}
+
 .progress-step span {
   font-size: 0.9rem;
   font-weight: 500;
   color: #666;
+  text-align: center;
 }
 
 .progress-step.completed span {
@@ -91,18 +145,12 @@
   font-weight: 600;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
 /* Contenedor de detalles */
 .details-container {
   background: white;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  display: none;
 }
 
 .details-container h3 {
@@ -115,31 +163,97 @@
 .details-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+.detail-group {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.detail-group h4 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.5rem;
 }
 
 .detail-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
 }
 
 .detail-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   opacity: 0.7;
 }
 
 .detail-label {
   font-weight: 600;
   color: #333;
-  min-width: 100px;
+  min-width: 120px;
 }
 
 .detail-value {
   color: #666;
   font-weight: 500;
+}
+
+/* Información de contacto */
+.contact-info {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+}
+
+.contact-info h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #2563eb;
+}
+
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+}
+
+.contact-details h4 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.contact-details p {
+  color: #666;
+  font-size: 0.9rem;
 }

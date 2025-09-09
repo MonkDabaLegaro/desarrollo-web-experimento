@@ -162,3 +162,77 @@
   color: #666;
   margin-bottom: 0.5rem;
 }
+
+/* Estado de siniestros del cliente */
+.claims-status {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.claims-status h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.claims-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.claim-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #2563eb;
+}
+
+.claim-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-processing {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.claim-details {
+  flex: 1;
+}
+
+.claim-details h4 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.claim-details p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.claim-actions {
+  display: flex;
+  gap: 0.5rem;
+}
