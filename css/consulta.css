@@ -9,18 +9,11 @@
   margin-bottom: 2rem;
 }
 
-.progress-container h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
 .progress-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -30,7 +23,6 @@
   align-items: center;
   gap: 0.5rem;
   position: relative;
-  flex: 1;
 }
 
 .step-circle {
@@ -42,7 +34,6 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  z-index: 2;
 }
 
 .progress-step.completed .step-circle {
@@ -66,28 +57,20 @@
 }
 
 .progress-line {
+  width: 100px;
   height: 3px;
   background: #e5e7eb;
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  right: -50%;
-  z-index: 1;
+  margin: 0 1rem;
 }
 
 .progress-line.completed {
   background: #10b981;
 }
 
-.progress-step:last-child .progress-line {
-  display: none;
-}
-
 .progress-step span {
   font-size: 0.9rem;
   font-weight: 500;
   color: #666;
-  text-align: center;
 }
 
 .progress-step.completed span {
@@ -100,6 +83,11 @@
   font-weight: 600;
 }
 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
 /* Contenedor de detalles */
 .details-container {
   background: white;
@@ -108,55 +96,30 @@
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-.details-container h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.detail-group {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 8px;
-}
-
-.detail-group h4 {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 0.5rem;
-}
-
 .detail-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .detail-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .detail-icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   opacity: 0.7;
 }
 
 .detail-label {
   font-weight: 600;
   color: #333;
-  min-width: 120px;
+  min-width: 80px;
 }
 
 .detail-value {
