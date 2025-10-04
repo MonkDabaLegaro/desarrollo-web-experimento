@@ -14,20 +14,24 @@ document.addEventListener("DOMContentLoaded", function() {
   loadDashboardData();
 });
 
+function logout() {
+  // Limpiar datos de sesión
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("userType");
+  localStorage.removeItem("redirectAfterLogin");
+  
+  // Redirigir al login
+  window.location.href = "login.html";
+}
+
 function loadDashboardData() {
-  // Cargar estadísticas reales desde siniestroManager
-  const stats = siniestroManager.getEstadisticas();
+  // Simular carga de datos del dashboard
+  // En una aplicación real, esto vendría de una API
   
-  // Actualizar los números en el dashboard
-  document.getElementById('siniestros-activos').textContent = stats.activos;
-  document.getElementById('siniestros-completados').textContent = stats.finalizados;
-  document.getElementById('siniestros-evaluacion').textContent = stats.enEvaluacion;
-  document.getElementById('siniestros-total').textContent = stats.total;
-  
-  // Animar números
+  // Actualizar estadísticas con animación
   animateNumbers();
   
-  // Cargar actividad reciente real
+  // Cargar actividad reciente
   loadRecentActivity();
 }
 
@@ -37,7 +41,7 @@ function animateNumbers() {
   statNumbers.forEach(element => {
     const finalValue = parseInt(element.textContent);
     let currentValue = 0;
-    const increment = finalValue / 30;
+    const increment = finalValue / 30; // Duración de la animación
     
     const timer = setInterval(() => {
       currentValue += increment;
@@ -52,66 +56,65 @@ function animateNumbers() {
 }
 
 function loadRecentActivity() {
-  const activityList = document.getElementById('activity-list');
-  const recentSiniestros = siniestroManager.getSiniestrosRecientes(4);
-  
-  // Limpiar actividades existentes
-  activityList.innerHTML = '';
-  
-  if (recentSiniestros.length === 0) {
-    activityList.innerHTML = '<div class="no-activity"><p>No hay actividad reciente. Los siniestros registrados aparecerán aquí.</p></div>';
-    return;
-  }
-  
-  // Agregar actividades reales
-  recentSiniestros.forEach(siniestro => {
-    let icon, title;
-    
-    if (siniestro.estado === 'Ingresado') {
-      icon = 'folder.png';
-      title = 'Nuevo siniestro registrado';
-    } else if (siniestro.estado === 'En Evaluación') {
-      icon = 'list.png';
-      title = 'Siniestro en evaluación';
-    } else {
-      icon = 'Checkmark.png';
-      title = 'Siniestro finalizado';
+  // Simular datos de actividad reciente
+  const activities = [
+    {
+      icon: "folder.png",
+      title: "Nuevo siniestro registrado",
+      description: "RUT: 12.345.678-9 - Póliza: POL123",
+      time: "Hace 15 minutos"
+    },
+    {
+      icon: "list.png", 
+      title: "Siniestro en evaluación",
+      description: "Asignado a liquidador María González",
+      time: "Hace 1 hora"
+    },
+    {
+      icon: "Checkmark.png",
+      title: "Siniestro finalizado", 
+      description: "Vehículo entregado al cliente",
+      time: "Hace 2 horas"
     }
-    
-    const timeDiff = timeSince(new Date(siniestro.fechaRegistro));
-    
-    const activityItem = document.createElement('div');
-    activityItem.className = 'activity-item';
-    activityItem.innerHTML = `
-      <img src="image/${icon}" alt="Actividad" class="activity-icon">
-      <div class="activity-content">
-        <p><strong>${title}</strong></p>
-        <small>RUT: ${siniestro.rut} - Póliza: ${siniestro.numeroPoliza}</small>
-        <span class="activity-time">Hace ${timeDiff}</span>
-      </div>
-    `;
-    
-    activityList.appendChild(activityItem);
-  });
+  ];
+
+  // Las actividades ya están en el HTML, pero podrían cargarse dinámicamente
+  console.log("Actividad reciente cargada:", activities);
 }
 
-function timeSince(date) {
-  const seconds = Math.floor((new Date() - date) / 1000);
-  let interval = seconds / 31536000;
-
-  if (interval > 1) return Math.floor(interval) + " años";
-  interval = seconds / 2592000;
-  if (interval > 1) return Math.floor(interval) + " meses";
-  interval = seconds / 86400;
-  if (interval > 1) return Math.floor(interval) + " días";
-  interval = seconds / 3600;
-  if (interval > 1) return Math.floor(interval) + " horas";
-  interval = seconds / 60;
-  if (interval > 1) return Math.floor(interval) + " minutos";
-  return Math.floor(seconds) + " segundos";
-}
-
-// Función para actualizar estadísticas (llamada desde otros archivos)
-function actualizarEstadisticas() {
-  loadDashboardData();
+// Función para mostrar notificaciones
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  
+  // Estilos para la notificación
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8'};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Animar entrada
+  setTimeout(() => {
+    notification.style.transform = 'translateX(0)';
+  }, 100);
+  
+  // Remover después de 3 segundos
+  setTimeout(() => {
+    notification.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 300);
+  }, 3000);
 }

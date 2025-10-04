@@ -1,20 +1,4 @@
     document.addEventListener("DOMContentLoaded", () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      const userType = localStorage.getItem("userType");
-  
-    // Verificar si el usuario está autenticado
-    if (isLoggedIn !== "true") {
-      localStorage.setItem("redirectAfterLogin", "reporte.html");
-      window.location.href = "login.html";
-      return;
-    }
-  
-    // Actualizar la bienvenida según el tipo de usuario
-    const userTypeDisplay = document.getElementById("userTypeDisplay");
-    if (userTypeDisplay && userType) {
-      userTypeDisplay.textContent = userType === "admin" ? "Administrador" : "Cliente";
-    }
-      
       // 1. Estadísticas generales
       const stats = siniestroManager.getEstadisticas();
 

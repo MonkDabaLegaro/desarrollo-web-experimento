@@ -10,9 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
-  // Ajustar navegación para cliente
-  adjustNavigation();
-
   // Cargar datos del cliente
   loadClientData();
 });
@@ -27,12 +24,9 @@ function logout() {
   window.location.href = "login.html";
 }
 
-function adjustNavigation() {
-  const navItems = document.querySelectorAll(".main-nav ul li a");
-
-
 function loadClientData() {
   // Simular carga de datos del cliente
+  // En una aplicación real, esto vendría de una API
   console.log("Datos del cliente cargados");
   
   // Mostrar mensaje de bienvenida
@@ -87,4 +81,4 @@ function showNotification(message, type = 'info') {
       document.body.removeChild(notification);
     }, 300);
   }, 3000);
-}}
+}
