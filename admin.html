@@ -4,80 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel Administrador - Sistema de Asistencia</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-  <header class="main-header">
+  <header class="admin-header">
     <div class="header-content">
-      <div class="header-logo">
-        <img src="image/logo.png" alt="Logo" class="logo-image">
-      </div>
-      <h1>Sistema de Asistencia Vehicular</h1>
+      <h1>Panel Administrador</h1>
       <div class="user-info">
         <span>Bienvenido, <strong>Administrador</strong></span>
-        <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+        <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
-  <nav class="main-nav">
+  <nav class="admin-nav">
     <ul>
-      <li><a href="admin.html" class="active">Inicio</a></li>
+      <li><a href="admin.html" class="active">Dashboard</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consulta de Estado</a></li>
       <li><a href="reporte.html">Reportes</a></li>
     </ul>
   </nav>
 
-  <main class="main-content">
+  <main class="admin-main">
     <div class="welcome-section">
-      <h2>Bienvenido al Panel de Administración</h2>
+      <h2>Bienvenido al Sistema de Gestión de Siniestros</h2>
       <p>Desde este panel puedes gestionar todos los aspectos del sistema de asistencia vehicular.</p>
     </div>
 
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/folder.png" alt="Siniestros" class="stat-image">
-        </div>
+        <div class="stat-icon">📋</div>
         <div class="stat-content">
           <h3>Siniestros Activos</h3>
-          <p class="stat-number" id="siniestros-activos">0</p>
+          <p class="stat-number">24</p>
           <small>En proceso</small>
         </div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/Checkmark.png" alt="Completados" class="stat-image">
-        </div>
+        <div class="stat-icon">✅</div>
         <div class="stat-content">
-          <h3>Completados</h3>
-          <p class="stat-number" id="siniestros-completados">0</p>
+          <h3>Completados Hoy</h3>
+          <p class="stat-number">8</p>
           <small>Finalizados</small>
         </div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/list.png" alt="En Evaluación" class="stat-image">
-        </div>
+        <div class="stat-icon">🚗</div>
         <div class="stat-content">
-          <h3>En Evaluación</h3>
-          <p class="stat-number" id="siniestros-evaluacion">0</p>
-          <small>En proceso</small>
+          <h3>Grúas Disponibles</h3>
+          <p class="stat-number">12</p>
+          <small>En servicio</small>
         </div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/YellowCheckMark.png" alt="Total" class="stat-image">
-        </div>
+        <div class="stat-icon">🔧</div>
         <div class="stat-content">
-          <h3>Total Siniestros</h3>
-          <p class="stat-number" id="siniestros-total">0</p>
-          <small>Registrados</small>
+          <h3>Talleres Activos</h3>
+          <p class="stat-number">6</p>
+          <small>Operativos</small>
         </div>
       </div>
     </div>
@@ -102,15 +90,35 @@
 
     <div class="recent-activity">
       <h3>Actividad Reciente</h3>
-      <div class="activity-list" id="activity-list">
-        <div class="no-activity">
-          <p>No hay actividad reciente. Los siniestros registrados aparecerán aquí.</p>
+      <div class="activity-list">
+        <div class="activity-item">
+          <img src="image/folder.png" alt="Nuevo" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Nuevo siniestro registrado</strong></p>
+            <small>RUT: 12.345.678-9 - Póliza: POL123</small>
+            <span class="activity-time">Hace 15 minutos</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <img src="image/list.png" alt="Proceso" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Siniestro en evaluación</strong></p>
+            <small>Asignado a liquidador María González</small>
+            <span class="activity-time">Hace 1 hora</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <img src="image/Checkmark.png" alt="Completado" class="activity-icon">
+          <div class="activity-content">
+            <p><strong>Siniestro finalizado</strong></p>
+            <small>Vehículo entregado al cliente</small>
+            <span class="activity-time">Hace 2 horas</span>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="js/siniestro.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

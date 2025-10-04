@@ -13,7 +13,7 @@
       <div class="header-logo">
         <img src="image/logo.png" alt="Logo" class="logo-image">
       </div>
-      <h1>Sistema de Asistencia Vehicular</h1>
+      <h1>Portal del Cliente</h1>
       <div class="user-info">
         <span>Bienvenido, <strong>Cliente</strong></span>
         <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
@@ -24,9 +24,8 @@
   <nav class="main-nav">
     <ul>
       <li><a href="cliente.html" class="active">Inicio</a></li>
-      <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consultar Estado</a></li>
-      <li><a href="reporte.html">Reportes</a></li>
+      <li><a href="#" onclick="showContact()">Contacto</a></li>
     </ul>
   </nav>
 
@@ -34,6 +33,11 @@
     <div class="welcome-section">
       <h2>Bienvenido al Sistema de Asistencia Vehicular</h2>
       <p>Consulta el estado de tu siniestro y mantente informado sobre el proceso de reparación.</p>
+    </div>
+
+    <div class="alert">
+      <img src="image/list.png" alt="Alerta" class="alert-icon">
+      <span>Demoras en taller X - Estimamos 2 días adicionales</span>
     </div>
 
     <div class="benefits-section">

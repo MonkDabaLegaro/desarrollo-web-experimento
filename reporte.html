@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reportes - Sistema de Asistencia</title>
+  <title>Consulta de Estado</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/reporte.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/consulta.css">
 </head>
 <body>
+  <nav>
+    <ul>
+      <li><a href="admin.html">Inicio</a></li>
   <header class="main-header">
     <div class="header-content">
       <div class="header-logo">
@@ -16,48 +15,112 @@
       </div>
       <h1>Sistema de Asistencia Vehicular</h1>
       <div class="user-info">
-        <span>Bienvenido, <strong id="userTypeDisplay">Administrador</strong></span>
+        <span>Bienvenido, <strong id="userTypeDisplay">Usuario</strong></span>
         <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
       </div>
     </div>
   </header>
 
   <nav class="main-nav">
-    <ul>
-      <li><a href="admin.html">Inicio</a></li>
+    <ul id="navMenu">
+      <li><a href="bienvenida.html">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
-      <li><a href="consulta.html">Consulta de Estado</a></li>
-      <li><a href="reporte.html" class="active">Reportes</a></li>
+      <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
     </ul>
   </nav>
 
+  <main>
+    <h1>Consulta de Siniestro</h1>
+    <p>Ingrese su RUT y número de póliza para consultar la información de su siniestro.</p>
   <main class="main-content">
-    <div class="dashboard">
-      <div class="chart-container">
-        <h3>Estados de los Siniestros</h3>
-        <canvas id="chartEstados"></canvas>
-      </div>
+    <div class="form-container">
+      <h1>Consulta de Estado del Siniestro</h1>
+      <p>Ingrese su RUT y número de póliza para consultar el estado de su siniestro.</p>
 
-      <div class="chart-container">
-        <h3>Tipos de Daño</h3>
-        <canvas id="chartTipos"></canvas>
-      </div>
+    <form id="form-consulta">
+      <input type="text" id="rutConsulta" placeholder="RUT" required>
+      <input type="text" id="polizaConsulta" placeholder="Número de Póliza" required>
+      <button type="submit" class="btn-primario">Consultar</button>
+    </form>
+      <form id="consultaForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>RUT del Asegurado</label>
+            <input type="text" id="rutConsulta" placeholder="12.345.678-9" required>
+          </div>
+          <div class="form-group">
+            <label>Número de Póliza</label>
+            <input type="text" id="polizaConsulta" placeholder="POL123" required>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <img src="image/list.png" alt="Consultar" class="btn-icon">
+            Consultar
+          </button>
+        </div>
+      </form>
+    </div>
 
-      <div class="chart-container">
-        <h3>Siniestros por Liquidador</h3>
-        <canvas id="chartLiquidadores"></canvas>
+    <div id="resultado" class="detalle" style="display:none; margin-top:20px;">
+      <h2>Información del Siniestro</h2>
+      <div class="detalle-item"><strong>RUT:</strong> <span id="resRut"></span></div>
+      <div class="detalle-item"><strong>N° Póliza:</strong> <span id="resPoliza"></span></div>
+      <div class="detalle-item"><strong>Tipo de Daño:</strong> <span id="resDanio"></span></div>
+      <div class="detalle-item"><strong>Vehículo:</strong> <span id="resVehiculo"></span></div>
+      <div class="detalle-item"><strong>Email:</strong> <span id="resEmail"></span></div>
+      <div class="detalle-item"><strong>Teléfono:</strong> <span id="resTelefono"></span></div>
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-step completed" id="step1">
+          <div class="step-circle">
+            <img src="image/folder.png" alt="Ingresado" class="step-icon">
+          </div>
+          <span>Ingresado</span>
+        </div>
+        <div class="progress-line completed" id="line1"></div>
+        <div class="progress-step completed" id="step2">
+          <div class="step-circle">
+            <img src="image/list.png" alt="En Evaluación" class="step-icon">
+          </div>
+          <span>En Evaluación</span>
+        </div>
+        <div class="progress-line completed" id="line2"></div>
+        <div class="progress-step current" id="step3">
+          <div class="step-circle">
+            <img src="image/Checkmark.png" alt="Finalizado" class="step-icon">
+          </div>
+          <span>Finalizado</span>
+        </div>
       </div>
+    </div>
 
-      <div class="chart-container">
-        <h3>Siniestros Recientes (Últimos 5)</h3>
-        <ul id="listaRecientes"></ul>
+    <div class="details-container" id="detailsContainer" style="display: none;">
+      <div class="detail-item">
+        <img src="image/folder.png" alt="Grúa" class="detail-icon">
+        <span class="detail-label">Grúa</span>
+        <span class="detail-value" id="gruaInfo">Grúa XYZ</span>
+      </div>
+      <div class="detail-item">
+        <img src="image/list.png" alt="Taller" class="detail-icon">
+        <span class="detail-label">Taller</span>
+        <span class="detail-value" id="tallerInfo">Taller ABC</span>
+      </div>
+      <div class="detail-item">
+        <img src="image/Checkmark.png" alt="Liquidador" class="detail-icon">
+        <span class="detail-label">Liquidador</span>
+        <span class="detail-value" id="liquidadorInfo">María González</span>
       </div>
     </div>
   </main>
 
   <!-- Scripts -->
   <script src="js/siniestro.js"></script>
-  <script src="js/reporte.js"></script>
-  <script src="js/auth.js"></script>
+  <script src ="js/consulta.js"></script>
+
+
+  <script src="js/consulta.js"></script>
 </body>
+</html>
 </html>
