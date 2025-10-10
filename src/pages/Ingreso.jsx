@@ -25,7 +25,7 @@ export default function Ingreso() {
     setFileName(simulatedFileName);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validarRUT(formData.rut)) {
@@ -45,16 +45,22 @@ export default function Ingreso() {
 
     const datos = {
       rut: formatearRUT(formData.rut),
-      numeroPoliza: formData.poliza,
-      tipoSeguro: formData.tipoDano,
-      vehiculo: formData.tipoVehiculo,
-      email: formData.email,
-      telefono: formData.telefono
+      numero_poliza: formData.poliza,
+      tipo_seguro: formData.tipoDano,
+      marca: formData.tipoVehiculo,
+      modelo: '',
+      patente: '',
+      ano: '',
+      nombre_completo: '',
+      direccion: '',
+      correo: formData.email,
+      telefono: formData.telefono,
+      descripcion_siniestro: `Tipo de daño: ${formData.tipoDano}`
     };
 
     try {
-      const nuevo = siniestroManager.crearSiniestro(datos);
-      alert(`Siniestro creado exitosamente con ID: ${nuevo.id}. Liquidador asignado: ${nuevo.liquidador}`);
+      const nuevo = await siniestroManager.crearSiniestro(datos);
+      alert(`Siniestro creado exitosamente. Liquidador asignado: ${nuevo.liquidador}`);
 
       setFormData({
         rut: '',
